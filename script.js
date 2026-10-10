@@ -290,46 +290,25 @@ filterBtns.forEach(btn => {
 // ===== Contact Form =====
 const contactForm = document.getElementById('contactForm');
 
-contactForm.addEventListener('submit', async (e) => {
+contactForm.addEventListener('submit', (e) => {
     e.preventDefault();
 
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const subject = document.getElementById('subject').value;
+    const message = document.getElementById('message').value;
+
+    const mailtoLink = `mailto:visiospectra786@gmail.com?subject=${encodeURIComponent(subject || 'Portfolio Inquiry from ' + name)}&body=${encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\n' + message)}`;
+
+    window.open(mailtoLink, '_self');
+
     const btn = contactForm.querySelector('.btn-submit');
-    const originalText = btn.innerHTML;
-    const formData = new FormData(contactForm);
+    btn.innerHTML = '<span>Opening Email...</span><i class="fas fa-envelope-open"></i>';
 
-    btn.innerHTML = '<span>Sending...</span>';
-    btn.disabled = true;
-
-    try {
-        const response = await fetch(contactForm.action, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-            btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
-            btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
-            contactForm.reset();
-
-            setTimeout(() => {
-                btn.innerHTML = originalText;
-                btn.style.background = '';
-                btn.disabled = false;
-            }, 3000);
-        } else {
-            throw new Error('Failed');
-        }
-    } catch {
-        btn.innerHTML = '<span>Error — Try Again</span><i class="fas fa-exclamation"></i>';
-        btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
-
-        setTimeout(() => {
-            btn.innerHTML = originalText;
-            btn.style.background = '';
-            btn.disabled = false;
-        }, 3000);
-    }
+    setTimeout(() => {
+        btn.innerHTML = '<span>Send Message</span><i class="fas fa-paper-plane"></i>';
+        contactForm.reset();
+    }, 2000);
 });
 
 // ===== Smooth Scroll for Anchor Links =====
