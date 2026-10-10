@@ -491,7 +491,7 @@
                         <a href="#" class="social-link" aria-label="Dribbble"><i class="fab fa-dribbble"></i></a>
                     </div>
                 </div>
-                <form class="contact-form" id="contactForm">
+                <form class="contact-form" id="contactForm" action="https://api.web3forms.com/submit" method="POST">
                     <div class="form-group">
                         <input type="text" id="name" name="name" placeholder=" " required>
                         <label for="name">Your Name</label>
@@ -503,8 +503,10 @@
                         <div class="input-line"></div>
                     </div>
                     <div class="form-group">
-                        <input type="text" id="subject" name="subject" placeholder=" ">
-                        <label for="subject">Subject</label>
+                        <input type="hidden" name="access_key" value="433bc392-239a-4c3d-bd81-01cb31ee3b65">
+                    <input type="hidden" name="subject" value="New Portfolio Inquiry">
+                    <input type="text" id="subject" name="subject_display" placeholder=" ">
+                        <label for="subject_display">Subject</label>
                         <div class="input-line"></div>
                     </div>
                     <div class="form-group">
