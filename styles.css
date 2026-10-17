@@ -1221,6 +1221,57 @@ img {
     }
 }
 
+.yt-view-more-card {
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: 2px dashed rgba(255, 0, 0, 0.3);
+}
+
+.yt-view-more-card:hover {
+    border-color: #ff0000;
+}
+
+.yt-view-more-icon {
+    width: 56px;
+    height: 56px;
+    background: rgba(255, 0, 0, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff0000;
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    transition: var(--transition);
+}
+
+.yt-view-more-card:hover .yt-view-more-icon {
+    background: #ff0000;
+    color: white;
+    transform: scale(1.1);
+}
+
+.yt-view-more-card .yt-video-info {
+    position: relative;
+    background: none;
+    padding: 8px 12px 12px;
+    text-align: center;
+}
+
+.yt-view-more-card .yt-video-title {
+    color: #ff0000;
+    font-weight: 600;
+}
+
+.yt-view-more-card .yt-video-views {
+    color: var(--text-muted);
+}
+
 /* ===== Education Section ===== */
 .education-grid {
     display: grid;

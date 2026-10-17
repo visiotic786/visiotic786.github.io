@@ -719,6 +719,15 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 181 views</span>
                             </div>
                         </div>
+                        <a href="https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1" target="_blank" class="yt-video-item yt-view-more-card">
+                            <div class="yt-view-more-icon">
+                                <i class="fab fa-youtube"></i>
+                            </div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">View More Videos on YouTube</span>
+                                <span class="yt-video-views"><i class="fas fa-external-link-alt"></i> Subscribe for more</span>
+                            </div>
+                        </a>
                     </div>
                 `
             },
@@ -842,15 +851,7 @@ function openProjectDetail(projectKey) {
         `;
     });
 
-    const viewMoreHTML = project.channelHeader ? `
-        <div class="yt-view-more">
-            <a href="${project.channelUrl}" target="_blank" class="yt-view-more-btn">
-                <i class="fab fa-youtube"></i>
-                <span>View More Videos on YouTube</span>
-                <i class="fas fa-external-link-alt"></i>
-            </a>
-        </div>
-    ` : '';
+    const viewMoreHTML = '';
 
     projectDetailContent.innerHTML = `
         ${headerHTML}
