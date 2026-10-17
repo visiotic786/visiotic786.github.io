@@ -564,6 +564,13 @@ const projectDetails = {
         category: 'YouTube Channel',
         title: 'Madiotic — Travel Vlogs & Cinematic Edits',
         subtitle: '15+ videos edited with Premiere Pro, DaVinci Resolve, After Effects & more',
+        channelHeader: true,
+        channelBanner: '',
+        channelAvatar: 'https://yt3.googleusercontent.com/ytc/AIdro_mSYwn7SoRGrjr2NAUoVu17xOhA4g_9XmU1xywDzG5fbm0=s900-c-k-c0x00ffffff-no-rj',
+        channelName: 'Madiotic',
+        channelSubs: '500+ Subscribers',
+        channelDesc: 'Cinematic travel vlogs, adventure documentaries & highlight reels from Azad Kashmir, Pakistan & around the world. Every video filmed, edited & produced entirely by me.',
+        channelUrl: 'https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1',
         sections: [
             {
                 icon: 'fas fa-youtube',
@@ -797,6 +804,34 @@ function openProjectDetail(projectKey) {
     const project = projectDetails[projectKey];
     if (!project) return;
 
+    let headerHTML = '';
+    if (project.channelHeader) {
+        headerHTML = `
+            <div class="yt-channel-header">
+                <div class="yt-channel-banner" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 70%, #533483 100%);">
+                    ${project.channelBanner ? `<img src="${project.channelBanner}" alt="Channel Banner" class="yt-channel-banner-img" onerror="this.style.display='none'">` : ''}
+                </div>
+                <div class="yt-channel-profile">
+                    <img src="${project.channelAvatar}" alt="${project.channelName}" class="yt-channel-avatar" onerror="this.src='https://i1.ytimg.com/vi/heXCfJPTP-k/hqdefault.jpg'">
+                </div>
+                <div class="yt-channel-info">
+                    <h2 class="yt-channel-name">${project.channelName}</h2>
+                    <span class="yt-channel-subs"><i class="fas fa-users"></i> ${project.channelSubs}</span>
+                    <p class="yt-channel-desc">${project.channelDesc}</p>
+                    <a href="${project.channelUrl}" target="_blank" class="yt-channel-subscribe">
+                        <i class="fab fa-youtube"></i> Subscribe on YouTube
+                    </a>
+                </div>
+            </div>
+        `;
+    } else {
+        headerHTML = `
+            <div class="project-detail-video">
+                <iframe src="https://www.youtube.com/embed/${project.videoId}?autoplay=0&rel=0" title="Project Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        `;
+    }
+
     let sectionsHTML = '';
     project.sections.forEach(section => {
         sectionsHTML += `
@@ -807,14 +842,23 @@ function openProjectDetail(projectKey) {
         `;
     });
 
-    projectDetailContent.innerHTML = `
-        <div class="project-detail-video">
-            <iframe src="https://www.youtube.com/embed/${project.videoId}?autoplay=0&rel=0" title="Project Video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    const viewMoreHTML = project.channelHeader ? `
+        <div class="yt-view-more">
+            <a href="${project.channelUrl}" target="_blank" class="yt-view-more-btn">
+                <i class="fab fa-youtube"></i>
+                <span>View More Videos on YouTube</span>
+                <i class="fas fa-external-link-alt"></i>
+            </a>
         </div>
+    ` : '';
+
+    projectDetailContent.innerHTML = `
+        ${headerHTML}
         <span class="project-detail-category">${project.category}</span>
         <h2>${project.title}</h2>
         <p class="project-detail-subtitle">${project.subtitle}</p>
         ${sectionsHTML}
+        ${viewMoreHTML}
     `;
 
     projectModalContent.scrollTop = 0;
