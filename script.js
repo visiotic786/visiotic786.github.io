@@ -416,7 +416,7 @@ const projectDetails = {
     '3d-cgi': {
         videoId: 'zpDXjtl4hls',
         category: '3D & VFX',
-        title: "Kashmir's First Fantasy Film — VFX & CGI Breakdown",
+        title: "Kashmir's First Fantasy Film — VFX & CGI Glimpses",
         subtitle: 'A comprehensive 5-year journey through professional 3D animation, visual effects, and cinematic production',
         sections: [
             {
