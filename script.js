@@ -369,3 +369,39 @@ window.addEventListener('scroll', () => {
         }
     });
 });
+
+// ===== Video Modal =====
+const videoModal = document.getElementById('videoModal');
+const videoFrame = document.getElementById('videoFrame');
+const videoModalClose = document.getElementById('videoModalClose');
+
+document.querySelectorAll('.video-trigger').forEach(trigger => {
+    trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const videoId = trigger.getAttribute('data-video');
+        videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        videoModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    });
+});
+
+function closeVideoModal() {
+    videoModal.classList.remove('active');
+    videoFrame.src = '';
+    document.body.style.overflow = '';
+}
+
+videoModalClose.addEventListener('click', closeVideoModal);
+
+videoModal.addEventListener('click', (e) => {
+    if (e.target === videoModal) {
+        closeVideoModal();
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && videoModal.classList.contains('active')) {
+        closeVideoModal();
+    }
+});
