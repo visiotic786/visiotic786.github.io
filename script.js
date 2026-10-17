@@ -568,7 +568,7 @@ const projectDetails = {
         channelBanner: '',
         channelAvatar: 'https://yt3.googleusercontent.com/ytc/AIdro_mSYwn7SoRGrjr2NAUoVu17xOhA4g_9XmU1xywDzG5fbm0=s900-c-k-c0x00ffffff-no-rj',
         channelName: 'Madiotic',
-        channelSubs: 'Loading...',
+        channelSubs: '3.37K Subscribers',
         channelDesc: 'Cinematic travel vlogs, adventure documentaries & highlight reels from Azad Kashmir, Pakistan & around the world. Every video filmed, edited & produced entirely by me.',
         channelUrl: 'https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1',
         sections: [
@@ -580,16 +580,16 @@ const projectDetails = {
                     <p>From drone shots of Leepa Valley to paragliding adventures in Muzaffarabad — each video showcases professional-level editing, color grading, sound design, and storytelling using <strong>Premiere Pro, DaVinci Resolve, After Effects, and Blender 3D</strong>.</p>
                     <div class="project-detail-stats">
                         <div class="project-detail-stat">
-                            <span class="project-detail-stat-number">15+</span>
+                            <span class="project-detail-stat-number">57</span>
                             <span class="project-detail-stat-label">Videos Published</span>
                         </div>
                         <div class="project-detail-stat">
-                            <span class="project-detail-stat-number">6.5K+</span>
+                            <span class="project-detail-stat-number">92.2K</span>
                             <span class="project-detail-stat-label">Total Views</span>
                         </div>
                         <div class="project-detail-stat">
-                            <span class="project-detail-stat-number">5.0</span>
-                            <span class="project-detail-stat-label">Average Rating</span>
+                            <span class="project-detail-stat-number">3.37K</span>
+                            <span class="project-detail-stat-label">Subscribers</span>
                         </div>
                     </div>
                 `
@@ -598,8 +598,11 @@ const projectDetails = {
                 icon: 'fas fa-play-circle',
                 heading: 'All Videos',
                 content: `
+                    <div class="yt-inline-player" id="ytInlinePlayer">
+                        <iframe id="ytInlineFrame" src="https://www.youtube.com/embed/heXCfJPTP-k?rel=0" title="Video Player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
                     <div class="yt-video-grid">
-                        <div class="yt-video-item" onclick="openYtVideo('heXCfJPTP-k')">
+                        <div class="yt-video-item yt-video-active" onclick="openYtVideo('heXCfJPTP-k', this)">
                             <img src="https://i1.ytimg.com/vi/heXCfJPTP-k/hqdefault.jpg" alt="The Mighty 12 HAZARI" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -607,7 +610,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 1,857 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('I6pTnEHmsb4')">
+                        <div class="yt-video-item" onclick="openYtVideo('I6pTnEHmsb4', this)">
                             <img src="https://i2.ytimg.com/vi/I6pTnEHmsb4/hqdefault.jpg" alt="12 Hazari Leepa Valley Episode 02" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -615,7 +618,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 760 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('m816D5fWD3c')">
+                        <div class="yt-video-item" onclick="openYtVideo('m816D5fWD3c', this)">
                             <img src="https://i2.ytimg.com/vi/m816D5fWD3c/hqdefault.jpg" alt="12 Hazari Leepa Valley Episode 01" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -623,7 +626,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 639 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('0d_PKDYAL3c')">
+                        <div class="yt-video-item" onclick="openYtVideo('0d_PKDYAL3c', this)">
                             <img src="https://i1.ytimg.com/vi/0d_PKDYAL3c/hqdefault.jpg" alt="Neelum Valley Sharda Arangkel" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -631,7 +634,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 603 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('WhzCzCUHerk')">
+                        <div class="yt-video-item" onclick="openYtVideo('WhzCzCUHerk', this)">
                             <img src="https://i4.ytimg.com/vi/WhzCzCUHerk/hqdefault.jpg" alt="Sultan Almaas Exclusive Interview" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -639,15 +642,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 481 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('iJVkdHtHD5k')">
-                            <img src="https://i2.ytimg.com/vi/iJVkdHtHD5k/hqdefault.jpg" alt="Golden Beach Bahrain" loading="lazy">
-                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
-                            <div class="yt-video-info">
-                                <span class="yt-video-title">Golden Beach | Bahrain</span>
-                                <span class="yt-video-views"><i class="fas fa-eye"></i> 468 views</span>
-                            </div>
-                        </div>
-                        <div class="yt-video-item" onclick="openYtVideo('s64fmaaEsuk')">
+                        <div class="yt-video-item" onclick="openYtVideo('s64fmaaEsuk', this)">
                             <img src="https://i4.ytimg.com/vi/s64fmaaEsuk/hqdefault.jpg" alt="Cycling in Kashmir" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -655,7 +650,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 353 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('uXNTX-8D8ek')">
+                        <div class="yt-video-item" onclick="openYtVideo('uXNTX-8D8ek', this)">
                             <img src="https://i2.ytimg.com/vi/uXNTX-8D8ek/hqdefault.jpg" alt="Ganga Choti" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -663,7 +658,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 343 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('6Ivq1PqWZTg')">
+                        <div class="yt-video-item" onclick="openYtVideo('6Ivq1PqWZTg', this)">
                             <img src="https://i3.ytimg.com/vi/6Ivq1PqWZTg/hqdefault.jpg" alt="Cycling Downhill Ganga Choti" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -671,7 +666,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 317 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('ZFRMVdnZnsM')">
+                        <div class="yt-video-item" onclick="openYtVideo('ZFRMVdnZnsM', this)">
                             <img src="https://i3.ytimg.com/vi/ZFRMVdnZnsM/hqdefault.jpg" alt="Paragliding" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -679,7 +674,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 297 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('25RSC7vhYkU')">
+                        <div class="yt-video-item" onclick="openYtVideo('25RSC7vhYkU', this)">
                             <img src="https://i3.ytimg.com/vi/25RSC7vhYkU/hqdefault.jpg" alt="Dubai Tour Highlights" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -687,7 +682,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 262 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('w7InWvI-0i0')">
+                        <div class="yt-video-item" onclick="openYtVideo('w7InWvI-0i0', this)">
                             <img src="https://i4.ytimg.com/vi/w7InWvI-0i0/hqdefault.jpg" alt="Relaxing Cycling Chakaar to Dhani" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -695,23 +690,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 258 views</span>
                             </div>
                         </div>
-                        <div class="yt-video-item" onclick="openYtVideo('--uKnQr2xRo')">
-                            <img src="https://i2.ytimg.com/vi/--uKnQr2xRo/hqdefault.jpg" alt="13 December 2023" loading="lazy">
-                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
-                            <div class="yt-video-info">
-                                <span class="yt-video-title">13 December 2023</span>
-                                <span class="yt-video-views"><i class="fas fa-eye"></i> 111 views</span>
-                            </div>
-                        </div>
-                        <div class="yt-video-item" onclick="openYtVideo('BLjOraEefbU')">
-                            <img src="https://i3.ytimg.com/vi/BLjOraEefbU/hqdefault.jpg" alt="Downhill 12000ft" loading="lazy">
-                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
-                            <div class="yt-video-info">
-                                <span class="yt-video-title">Downhill | 12,000 ft</span>
-                                <span class="yt-video-views"><i class="fas fa-eye"></i> 143 views</span>
-                            </div>
-                        </div>
-                        <div class="yt-video-item" onclick="openYtVideo('RFLsCGqXbK4')">
+                        <div class="yt-video-item" onclick="openYtVideo('RFLsCGqXbK4', this)">
                             <img src="https://i3.ytimg.com/vi/RFLsCGqXbK4/hqdefault.jpg" alt="Relaxing Cycling Village" loading="lazy">
                             <div class="yt-video-play"><i class="fas fa-play"></i></div>
                             <div class="yt-video-info">
@@ -839,8 +818,10 @@ function formatNumber(num) {
 
 function updateChannelHeader(stats) {
     if (!stats) return;
-    const subsEl = document.querySelector('.yt-channel-subs span:last-child');
-    if (subsEl) subsEl.textContent = formatNumber(stats.subscribers) + ' Subscribers';
+    const subsEl = document.querySelector('.yt-channel-subs');
+    if (subsEl) {
+        subsEl.innerHTML = `<i class="fas fa-users"></i> ${formatNumber(stats.subscribers)} Subscribers`;
+    }
 
     // Update project detail stats
     const statNumbers = document.querySelectorAll('.project-detail-stat-number');
@@ -867,7 +848,7 @@ async function openProjectDetail(projectKey) {
                 </div>
                 <div class="yt-channel-info">
                     <h2 class="yt-channel-name">${project.channelName}</h2>
-                    <span class="yt-channel-subs"><i class="fas fa-users"></i> ${project.channelSubs}</span>
+                    <span class="yt-channel-subs"><i class="fas fa-users"></i> <span id="ytSubsText">${project.channelSubs}</span></span>
                     <p class="yt-channel-desc">${project.channelDesc}</p>
                     <a href="${project.channelUrl}" target="_blank" class="yt-channel-subscribe">
                         <i class="fab fa-youtube"></i> Subscribe on YouTube
@@ -968,11 +949,21 @@ document.querySelectorAll('.portfolio-image').forEach(img => {
     });
 });
 
-function openYtVideo(videoId) {
-    const content = document.getElementById('projectDetailContent');
-    const topVideo = content.querySelector('.project-detail-video iframe');
-    if (topVideo) {
-        topVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-        document.getElementById('projectModalContent').scrollTop = 0;
+function openYtVideo(videoId, el) {
+    const inlineFrame = document.getElementById('ytInlineFrame');
+    if (inlineFrame) {
+        inlineFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        document.getElementById('ytInlinePlayer').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+        // Fallback for 3D project — update top video iframe
+        const content = document.getElementById('projectDetailContent');
+        const topVideo = content.querySelector('.project-detail-video iframe');
+        if (topVideo) {
+            topVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+            document.getElementById('projectModalContent').scrollTop = 0;
+        }
     }
+    // Highlight active video
+    document.querySelectorAll('.yt-video-item').forEach(item => item.classList.remove('yt-video-active'));
+    if (el) el.classList.add('yt-video-active');
 }
