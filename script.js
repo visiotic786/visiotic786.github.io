@@ -568,7 +568,7 @@ const projectDetails = {
         channelBanner: '',
         channelAvatar: 'https://yt3.googleusercontent.com/ytc/AIdro_mSYwn7SoRGrjr2NAUoVu17xOhA4g_9XmU1xywDzG5fbm0=s900-c-k-c0x00ffffff-no-rj',
         channelName: 'Madiotic',
-        channelSubs: '3.37K Subscribers',
+        channelSubs: 'Loading...',
         channelDesc: 'Cinematic travel vlogs, adventure documentaries & highlight reels from Azad Kashmir, Pakistan & around the world. Every video filmed, edited & produced entirely by me.',
         channelUrl: 'https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1',
         sections: [
@@ -809,7 +809,49 @@ const projectDetails = {
     }
 };
 
-function openProjectDetail(projectKey) {
+// ===== YouTube API — Live Channel Stats =====
+const YT_API_KEY = 'AIzaSyAQWXYjD40-l-9LqQaYm-6Mde6AhwcMDCw';
+const YT_CHANNEL_ID = 'UCmCXdyQ-zh-mJEQcpq3d4Xg';
+
+async function fetchYtStats() {
+    try {
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YT_CHANNEL_ID}&key=${YT_API_KEY}`);
+        const data = await response.json();
+        if (data.items && data.items.length > 0) {
+            const stats = data.items[0].statistics;
+            return {
+                subscribers: parseInt(stats.subscriberCount),
+                videos: parseInt(stats.videoCount),
+                views: parseInt(stats.viewCount)
+            };
+        }
+    } catch (e) {
+        console.log('YouTube API error:', e);
+    }
+    return null;
+}
+
+function formatNumber(num) {
+    if (num >= 1000000) return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(2).replace(/\.00$/, '').replace(/(\.\d)0$/, '$1') + 'K';
+    return num.toString();
+}
+
+function updateChannelHeader(stats) {
+    if (!stats) return;
+    const subsEl = document.querySelector('.yt-channel-subs span:last-child');
+    if (subsEl) subsEl.textContent = formatNumber(stats.subscribers) + ' Subscribers';
+
+    // Update project detail stats
+    const statNumbers = document.querySelectorAll('.project-detail-stat-number');
+    if (statNumbers.length >= 3) {
+        statNumbers[0].textContent = formatNumber(stats.videos);
+        statNumbers[1].textContent = formatNumber(stats.views);
+        if (statNumbers[2]) statNumbers[2].textContent = '5.0';
+    }
+}
+
+async function openProjectDetail(projectKey) {
     const project = projectDetails[projectKey];
     if (!project) return;
 
@@ -861,6 +903,13 @@ function openProjectDetail(projectKey) {
         ${sectionsHTML}
         ${viewMoreHTML}
     `;
+
+    // Fetch live YouTube stats for channel projects
+    if (project.channelHeader) {
+        fetchYtStats().then(stats => {
+            if (stats) updateChannelHeader(stats);
+        });
+    }
 
     projectModalContent.scrollTop = 0;
     projectModal.classList.add('active');
