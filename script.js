@@ -568,7 +568,7 @@ const projectDetails = {
         channelBanner: '',
         channelAvatar: 'https://yt3.googleusercontent.com/ytc/AIdro_mSYwn7SoRGrjr2NAUoVu17xOhA4g_9XmU1xywDzG5fbm0=s900-c-k-c0x00ffffff-no-rj',
         channelName: 'Madiotic',
-        channelSubs: '500+ Subscribers',
+        channelSubs: '3.37K Subscribers',
         channelDesc: 'Cinematic travel vlogs, adventure documentaries & highlight reels from Azad Kashmir, Pakistan & around the world. Every video filmed, edited & produced entirely by me.',
         channelUrl: 'https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1',
         sections: [
