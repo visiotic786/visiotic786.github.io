@@ -717,21 +717,65 @@ const projectDetails = {
             },
             {
                 icon: 'fas fa-tools',
-                heading: 'Software Used',
+                heading: 'Software Used & My Role',
                 content: `
+                    <p>Every video on the <strong>Madiotic</strong> channel is created entirely by me — from filming and editing to thumbnails and branding. Here's exactly which software I used and how:</p>
+
+                    <h3 style="margin:20px 0 10px; font-size:1rem;"><i class="fas fa-video" style="color:var(--accent-light); margin-right:6px;"></i> Video Editing — Premiere Pro</h3>
+                    <p>All 15+ videos were edited in <strong>Adobe Premiere Pro</strong>. This includes:</p>
                     <ul>
-                        <li><strong>Premiere Pro</strong> — Primary video editing, timeline assembly, audio mixing, and export for all vlogs and highlight reels</li>
-                        <li><strong>DaVinci Resolve</strong> — Professional color grading, cinematic color palettes, shot matching, and HDR finishing</li>
-                        <li><strong>After Effects</strong> — Motion graphics, animated titles, lower thirds, transitions, and VFX compositing</li>
-                        <li><strong>Photoshop</strong> — YouTube thumbnail design, image enhancement, and social media graphics</li>
-                        <li><strong>Blender 3D</strong> — 3D animated intros, logo reveals, and motion graphics elements</li>
+                        <li><strong>Timeline editing</strong> — Cutting, trimming, and arranging raw footage into a polished final video</li>
+                        <li><strong>Audio mixing</strong> — Balancing background music, voiceover, and natural sounds for a cinematic listening experience</li>
+                        <li><strong>Speed ramping</strong> — Creating dramatic slow-motion and time-lapse sequences for drone and action shots</li>
+                        <li><strong>Multi-track editing</strong> — Layering drone footage, ground camera shots, GoPro clips, and B-roll into seamless sequences</li>
+                        <li><strong>Export optimization</strong> — Rendering in 4K and 1080p at the right bitrate for YouTube's best quality</li>
                     </ul>
+
+                    <h3 style="margin:20px 0 10px; font-size:1rem;"><i class="fas fa-sun" style="color:var(--accent-light); margin-right:6px;"></i> Color Grading — DaVinci Resolve</h3>
+                    <p>After editing in Premiere Pro, every video goes through <strong>DaVinci Resolve</strong> for professional color grading:</p>
+                    <ul>
+                        <li><strong>Cinematic color grading</strong> — Applying rich, film-like color tones to make Kashmir's landscapes look breathtaking</li>
+                        <li><strong>Shot matching</strong> — Matching colors across different cameras (drone, phone, action cam) so every clip looks consistent</li>
+                        <li><strong>Sky and landscape enhancement</strong> — Boosting blues in skies, greens in valleys, and warm tones in sunsets</li>
+                        <li><strong>Low-light correction</strong> — Fixing exposure and noise in dawn, dusk, and night footage</li>
+                        <li><strong>LUT application</strong> — Using custom Look-Up Tables for a signature Madiotic color style</li>
+                    </ul>
+
+                    <h3 style="margin:20px 0 10px; font-size:1rem;"><i class="fas fa-image" style="color:var(--accent-light); margin-right:6px;"></i> Thumbnails — Photoshop</h3>
+                    <p>Every YouTube thumbnail is designed in <strong>Adobe Photoshop</strong>:</p>
+                    <ul>
+                        <li><strong>Photo compositing</strong> — Combining the best frames from each video into one eye-catching thumbnail image</li>
+                        <li><strong>Color enhancement</strong> — Boosting saturation, contrast, and clarity to make thumbnails pop in the YouTube feed</li>
+                        <li><strong>Text overlays</strong> — Adding bold, readable text with shadows and outlines for maximum click-through rate</li>
+                        <li><strong>Face retouching</strong> — Enhancing expressions and skin tones for engaging, professional-looking thumbnails</li>
+                        <li><strong>Before/After effects</strong> — Adding visual effects, glows, and dramatic lighting to thumbnails</li>
+                    </ul>
+
+                    <h3 style="margin:20px 0 10px; font-size:1rem;"><i class="fas fa-pen-nib" style="color:var(--accent-light); margin-right:6px;"></i> Branding & Graphics — Illustrator</h3>
+                    <p><strong>Adobe Illustrator</strong> is used for all vector-based branding on the channel:</p>
+                    <ul>
+                        <li><strong>Channel logo</strong> — Designing the Madiotic logo as a scalable vector that looks sharp at any size</li>
+                        <li><strong>Lower thirds</strong> — Creating clean, animated name tags and location labels that appear in videos</li>
+                        <li><strong>Watermark design</strong> — Designing the Madiotic watermark that appears in the corner of every video</li>
+                        <li><strong>Intro/outro graphics</strong> — Creating vector-based title cards, end screens, and subscribe animations</li>
+                        <li><strong>Social media graphics</strong> — Designing consistent branding elements for Instagram, Facebook, and TikTok</li>
+                    </ul>
+
+                    <h3 style="margin:20px 0 10px; font-size:1rem;"><i class="fas fa-magic" style="color:var(--accent-light); margin-right:6px;"></i> Motion Graphics — After Effects</h3>
+                    <p>Advanced motion graphics and effects in <strong>Adobe After Effects</strong>:</p>
+                    <ul>
+                        <li><strong>Animated titles</strong> — Creating cinematic opening titles and location reveals for each vlog</li>
+                        <li><strong>Map animations</strong> — Designing animated travel route maps showing the journey path</li>
+                        <li><strong>Text animations</strong> — Adding kinetic typography and animated captions throughout videos</li>
+                        <li><strong>Transitions</strong> — Creating custom whip-pan, zoom, and light-leak transitions between scenes</li>
+                    </ul>
+
                     <div class="software-tags">
-                        <span class="software-tag"><i class="fas fa-video"></i> Premiere Pro</span>
-                        <span class="software-tag"><i class="fas fa-sun"></i> DaVinci Resolve</span>
-                        <span class="software-tag"><i class="fas fa-magic"></i> After Effects</span>
-                        <span class="software-tag"><i class="fas fa-image"></i> Photoshop</span>
-                        <span class="software-tag"><i class="fas fa-cube"></i> Blender 3D</span>
+                        <span class="software-tag"><i class="fas fa-video"></i> Premiere Pro — Video Editing</span>
+                        <span class="software-tag"><i class="fas fa-sun"></i> DaVinci Resolve — Color Grading</span>
+                        <span class="software-tag"><i class="fas fa-image"></i> Photoshop — Thumbnails</span>
+                        <span class="software-tag"><i class="fas fa-pen-nib"></i> Illustrator — Branding</span>
+                        <span class="software-tag"><i class="fas fa-magic"></i> After Effects — Motion Graphics</span>
                     </div>
                 `
             },
