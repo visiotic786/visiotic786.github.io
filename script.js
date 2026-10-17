@@ -416,7 +416,7 @@ const projectDetails = {
     '3d-cgi': {
         videoId: 'zpDXjtl4hls',
         category: '3D & VFX',
-        title: '3D CGI Production — Complete Case Study',
+        title: 'Cinematic 3D Animation & VFX Showreel — Complete Case Study',
         subtitle: 'A comprehensive 5-year journey through professional 3D animation, visual effects, and cinematic production',
         sections: [
             {
