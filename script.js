@@ -265,27 +265,7 @@ const revealObserver = new IntersectionObserver((entries) => {
 revealElements.forEach(el => revealObserver.observe(el));
 
 // ===== Portfolio Filter =====
-const filterBtns = document.querySelectorAll('.filter-btn');
 const portfolioItems = document.querySelectorAll('.portfolio-item');
-
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        filterBtns.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-
-        const filter = btn.getAttribute('data-filter');
-
-        portfolioItems.forEach(item => {
-            const category = item.getAttribute('data-category');
-            if (filter === 'all' || category === filter) {
-                item.style.display = 'block';
-                item.style.animation = 'fadeInUp 0.5s ease forwards';
-            } else {
-                item.style.display = 'none';
-            }
-        });
-    });
-});
 
 // ===== Contact Form =====
 const contactForm = document.getElementById('contactForm');
@@ -823,10 +803,25 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Open project detail when clicking portfolio item
-document.querySelectorAll('.portfolio-item').forEach(item => {
-    item.addEventListener('click', () => {
-        const category = item.getAttribute('data-category');
+// Open project detail when clicking portfolio card button
+document.querySelectorAll('.portfolio-card-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const card = btn.closest('.portfolio-item');
+        const category = card.getAttribute('data-category');
+        if (category === '3d') {
+            openProjectDetail('3d-cgi');
+        } else if (category === 'youtube') {
+            openProjectDetail('madiotic');
+        }
+    });
+});
+
+// Open project detail when clicking portfolio image
+document.querySelectorAll('.portfolio-image').forEach(img => {
+    img.addEventListener('click', () => {
+        const card = img.closest('.portfolio-item');
+        const category = card.getAttribute('data-category');
         if (category === '3d') {
             openProjectDetail('3d-cgi');
         } else if (category === 'youtube') {
