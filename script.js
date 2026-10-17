@@ -578,6 +578,194 @@ const projectDetails = {
                 `
             }
         ]
+    },
+    'madiotic': {
+        videoId: 'heXCfJPTP-k',
+        category: 'YouTube Channel',
+        title: 'Madiotic — Travel Vlogs & Cinematic Edits',
+        subtitle: '15+ videos edited with Premiere Pro, DaVinci Resolve, After Effects & more',
+        sections: [
+            {
+                icon: 'fas fa-youtube',
+                heading: 'Channel Overview',
+                content: `
+                    <p><strong>Madiotic</strong> is my personal YouTube channel where I create cinematic travel vlogs, adventure documentaries, and highlight reels from Azad Kashmir, Pakistan, and around the world. Every video is <strong>filmed, edited, color graded, and produced</strong> entirely by me.</p>
+                    <p>From drone shots of Leepa Valley to paragliding adventures in Muzaffarabad — each video showcases professional-level editing, color grading, sound design, and storytelling using <strong>Premiere Pro, DaVinci Resolve, After Effects, and Blender 3D</strong>.</p>
+                    <div class="project-detail-stats">
+                        <div class="project-detail-stat">
+                            <span class="project-detail-stat-number">15+</span>
+                            <span class="project-detail-stat-label">Videos Published</span>
+                        </div>
+                        <div class="project-detail-stat">
+                            <span class="project-detail-stat-number">6.5K+</span>
+                            <span class="project-detail-stat-label">Total Views</span>
+                        </div>
+                        <div class="project-detail-stat">
+                            <span class="project-detail-stat-number">5.0</span>
+                            <span class="project-detail-stat-label">Average Rating</span>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                icon: 'fas fa-play-circle',
+                heading: 'All Videos',
+                content: `
+                    <div class="yt-video-grid">
+                        <div class="yt-video-item" onclick="openYtVideo('heXCfJPTP-k')">
+                            <img src="https://i1.ytimg.com/vi/heXCfJPTP-k/hqdefault.jpg" alt="The Mighty 12 HAZARI" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">The Mighty 12 HAZARI | Leepa Valley</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 1,857 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('I6pTnEHmsb4')">
+                            <img src="https://i2.ytimg.com/vi/I6pTnEHmsb4/hqdefault.jpg" alt="12 Hazari Leepa Valley Episode 02" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">12 Hazari | Leepa Valley | Episode 02</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 760 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('m816D5fWD3c')">
+                            <img src="https://i2.ytimg.com/vi/m816D5fWD3c/hqdefault.jpg" alt="12 Hazari Leepa Valley Episode 01" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">12 Hazari | Leepa Valley | Episode 01</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 639 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('0d_PKDYAL3c')">
+                            <img src="https://i1.ytimg.com/vi/0d_PKDYAL3c/hqdefault.jpg" alt="Neelum Valley Sharda Arangkel" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Neelum Valley | Sharda | Arangkel</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 603 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('WhzCzCUHerk')">
+                            <img src="https://i4.ytimg.com/vi/WhzCzCUHerk/hqdefault.jpg" alt="Sultan Almaas Exclusive Interview" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Sultan Almaas | Exclusive Interview</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 481 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('iJVkdHtHD5k')">
+                            <img src="https://i2.ytimg.com/vi/iJVkdHtHD5k/hqdefault.jpg" alt="Golden Beach Bahrain" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Golden Beach | Bahrain</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 468 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('s64fmaaEsuk')">
+                            <img src="https://i4.ytimg.com/vi/s64fmaaEsuk/hqdefault.jpg" alt="Cycling in Kashmir" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Cycling in Kashmir | Sudhan Gali to Chakaar</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 353 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('uXNTX-8D8ek')">
+                            <img src="https://i2.ytimg.com/vi/uXNTX-8D8ek/hqdefault.jpg" alt="Ganga Choti" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Till My Heart Goes LA LA LA | Ganga Choti</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 343 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('6Ivq1PqWZTg')">
+                            <img src="https://i3.ytimg.com/vi/6Ivq1PqWZTg/hqdefault.jpg" alt="Cycling Downhill Ganga Choti" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Cycling in Downhill Traffic | Ganga Choti</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 317 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('ZFRMVdnZnsM')">
+                            <img src="https://i3.ytimg.com/vi/ZFRMVdnZnsM/hqdefault.jpg" alt="Paragliding" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Taking Game Slow | Paragliding</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 297 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('25RSC7vhYkU')">
+                            <img src="https://i3.ytimg.com/vi/25RSC7vhYkU/hqdefault.jpg" alt="Dubai Tour Highlights" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Dubai Tour Highlights | UAE, KSA, BAH</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 262 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('w7InWvI-0i0')">
+                            <img src="https://i4.ytimg.com/vi/w7InWvI-0i0/hqdefault.jpg" alt="Relaxing Cycling Chakaar to Dhani" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Relaxing & Cycling | Chakaar to Dhani</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 258 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('--uKnQr2xRo')">
+                            <img src="https://i2.ytimg.com/vi/--uKnQr2xRo/hqdefault.jpg" alt="13 December 2023" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">13 December 2023</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 111 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('BLjOraEefbU')">
+                            <img src="https://i3.ytimg.com/vi/BLjOraEefbU/hqdefault.jpg" alt="Downhill 12000ft" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Downhill | 12,000 ft</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 143 views</span>
+                            </div>
+                        </div>
+                        <div class="yt-video-item" onclick="openYtVideo('RFLsCGqXbK4')">
+                            <img src="https://i3.ytimg.com/vi/RFLsCGqXbK4/hqdefault.jpg" alt="Relaxing Cycling Village" loading="lazy">
+                            <div class="yt-video-play"><i class="fas fa-play"></i></div>
+                            <div class="yt-video-info">
+                                <span class="yt-video-title">Relaxing & Cycling Around Village</span>
+                                <span class="yt-video-views"><i class="fas fa-eye"></i> 181 views</span>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            {
+                icon: 'fas fa-tools',
+                heading: 'Software Used',
+                content: `
+                    <ul>
+                        <li><strong>Premiere Pro</strong> — Primary video editing, timeline assembly, audio mixing, and export for all vlogs and highlight reels</li>
+                        <li><strong>DaVinci Resolve</strong> — Professional color grading, cinematic color palettes, shot matching, and HDR finishing</li>
+                        <li><strong>After Effects</strong> — Motion graphics, animated titles, lower thirds, transitions, and VFX compositing</li>
+                        <li><strong>Photoshop</strong> — YouTube thumbnail design, image enhancement, and social media graphics</li>
+                        <li><strong>Blender 3D</strong> — 3D animated intros, logo reveals, and motion graphics elements</li>
+                    </ul>
+                    <div class="software-tags">
+                        <span class="software-tag"><i class="fas fa-video"></i> Premiere Pro</span>
+                        <span class="software-tag"><i class="fas fa-sun"></i> DaVinci Resolve</span>
+                        <span class="software-tag"><i class="fas fa-magic"></i> After Effects</span>
+                        <span class="software-tag"><i class="fas fa-image"></i> Photoshop</span>
+                        <span class="software-tag"><i class="fas fa-cube"></i> Blender 3D</span>
+                    </div>
+                `
+            },
+            {
+                icon: 'fas fa-external-link-alt',
+                heading: 'Watch on YouTube',
+                content: `
+                    <p>Watch all these videos directly on YouTube, subscribe to the channel for new content, and follow Madiotic on social media for behind-the-scenes content.</p>
+                    <a href="https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1" target="_blank" class="btn btn-primary" style="margin-top:8px;">
+                        <i class="fab fa-youtube"></i> <span>Subscribe on YouTube</span>
+                    </a>
+                `
+            }
+        ]
     }
 };
 
@@ -641,6 +829,17 @@ document.querySelectorAll('.portfolio-item').forEach(item => {
         const category = item.getAttribute('data-category');
         if (category === '3d') {
             openProjectDetail('3d-cgi');
+        } else if (category === 'youtube') {
+            openProjectDetail('madiotic');
         }
     });
 });
+
+function openYtVideo(videoId) {
+    const content = document.getElementById('projectDetailContent');
+    const topVideo = content.querySelector('.project-detail-video iframe');
+    if (topVideo) {
+        topVideo.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        document.getElementById('projectModalContent').scrollTop = 0;
+    }
+}
