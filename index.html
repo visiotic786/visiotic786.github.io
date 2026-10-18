@@ -28,7 +28,7 @@
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#portfolio" class="nav-link">Projects</a></li>
-                <li><a href="#design-work" class="nav-link">Designs</a></li>
+                <li><a href="#showreel" class="nav-link">Showreel</a></li>
                 <li><a href="#cv-download" class="nav-link">CV</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -403,21 +403,9 @@
         </div>
     </section>
 
-    <!-- Design Gallery Section (Embedded Showreel) -->
-    <section class="section design-showcase" id="design-work">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-tag">My Creations</span>
-                <h2 class="section-title">Graphic <span class="gradient-text">Design Work</span></h2>
-            </div>
-            <p class="design-showcase-intro">Explore my graphic design portfolio — lettering, logos, neon signs, branding, mockups & web design. Scroll through categories, click images for full view.</p>
-        </div>
-        <div class="design-showcase-frame-wrap">
-            <iframe src="showreel/index.html" class="design-showcase-frame" title="Graphic Design Portfolio" loading="lazy" allow="fullscreen"></iframe>
-            <button class="design-showcase-expand" id="designExpandBtn" aria-label="View fullscreen">
-                <i class="fas fa-expand"></i> Fullscreen
-            </button>
-        </div>
+    <!-- Showreel Section (self-contained web component) -->
+    <section id="showreel" class="section">
+        <graphic-showreel sticky-top="60"></graphic-showreel>
     </section>
 
     <!-- Education Section -->
@@ -620,5 +608,6 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="showreel.js" defer></script>
 </body>
 </html>

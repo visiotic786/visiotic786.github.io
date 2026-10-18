@@ -350,19 +350,6 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// ===== Design Showcase Fullscreen =====
-const designExpandBtn = document.getElementById('designExpandBtn');
-if (designExpandBtn) {
-    designExpandBtn.addEventListener('click', () => {
-        const frameWrap = designExpandBtn.closest('.design-showcase-frame-wrap');
-        if (frameWrap.requestFullscreen) {
-            frameWrap.requestFullscreen();
-        } else if (frameWrap.webkitRequestFullscreen) {
-            frameWrap.webkitRequestFullscreen();
-        }
-    });
-}
-
 // ===== Intro Video Play Button =====
 const introVideo = document.getElementById('introVideo');
 const introPlayBtn = document.getElementById('introPlayBtn');
