@@ -353,11 +353,13 @@ window.addEventListener('scroll', () => {
 // ===== Intro Video Play Button =====
 const introVideo = document.getElementById('introVideo');
 const introPlayBtn = document.getElementById('introPlayBtn');
+const introVideoFrame = document.getElementById('introVideoFrame');
 
 if (introVideo && introPlayBtn) {
     introPlayBtn.addEventListener('click', () => {
         introVideo.play();
         introPlayBtn.classList.add('hidden');
+        introVideoFrame.classList.add('video-playing');
     });
 
     introVideo.addEventListener('pause', () => {
@@ -368,10 +370,12 @@ if (introVideo && introPlayBtn) {
 
     introVideo.addEventListener('ended', () => {
         introPlayBtn.classList.remove('hidden');
+        introVideoFrame.classList.remove('video-playing');
     });
 
     introVideo.addEventListener('play', () => {
         introPlayBtn.classList.add('hidden');
+        introVideoFrame.classList.add('video-playing');
     });
 }
 
