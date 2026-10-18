@@ -350,6 +350,31 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// ===== Intro Video Play Button =====
+const introVideo = document.getElementById('introVideo');
+const introPlayBtn = document.getElementById('introPlayBtn');
+
+if (introVideo && introPlayBtn) {
+    introPlayBtn.addEventListener('click', () => {
+        introVideo.play();
+        introPlayBtn.classList.add('hidden');
+    });
+
+    introVideo.addEventListener('pause', () => {
+        if (introVideo.currentTime > 0 && !introVideo.ended) {
+            introPlayBtn.classList.remove('hidden');
+        }
+    });
+
+    introVideo.addEventListener('ended', () => {
+        introPlayBtn.classList.remove('hidden');
+    });
+
+    introVideo.addEventListener('play', () => {
+        introPlayBtn.classList.add('hidden');
+    });
+}
+
 // ===== Video Modal =====
 const videoModal = document.getElementById('videoModal');
 const videoFrame = document.getElementById('videoFrame');
