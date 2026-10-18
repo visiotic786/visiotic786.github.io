@@ -350,6 +350,186 @@ window.addEventListener('scroll', () => {
     });
 });
 
+// ===== Design Gallery =====
+const GALLERY_DATA = [
+    {"k":"polly","f":"assets/showreel/polly.jpg","t":"Love by Polly and Danny","s":"","c":"lettering","w":350,"h":586},
+    {"k":"impact","f":"assets/showreel/impact.jpg","t":"Make an Impact","s":"","c":"lettering","w":564,"h":423},
+    {"k":"awkward","f":"assets/showreel/awkward.jpg","t":"Awkward","s":"","c":"lettering","w":564,"h":564},
+    {"k":"rise","f":"assets/showreel/rise.jpg","t":"Rise & Grind","s":"","c":"lettering","w":736,"h":552},
+    {"k":"graffiti","f":"assets/showreel/graffiti.jpg","t":"Madiotech Custom Graffiti","s":"Graffiti lettering on a brick wall","c":"lettering","w":1278,"h":740},
+    {"k":"mad1","f":"assets/showreel/mad1.jpg","t":"Madiotech: Lettering and Shadow","s":"Step 1 of 4","c":"madiotech","w":1138,"h":740},
+    {"k":"mad2","f":"assets/showreel/mad2.jpg","t":"Madiotech: Colour and Gloss","s":"Step 2 of 4","c":"madiotech","w":1138,"h":740},
+    {"k":"mad3","f":"assets/showreel/mad3.jpg","t":"Madiotech: Drips and Puddles","s":"Step 3 of 4","c":"madiotech","w":1138,"h":740},
+    {"k":"mad4","f":"assets/showreel/mad4.jpg","t":"Madiotech: Toppings and Finish","s":"Step 4 of 4","c":"madiotech","w":1138,"h":740},
+    {"k":"logos-a","f":"assets/showreel/logos-a.jpg","t":"Logo Set One","s":"Home River, Snaillo, Magic Candle, Pumpkin Laboratory","c":"logos","w":1280,"h":769},
+    {"k":"logos-b","f":"assets/showreel/logos-b.jpg","t":"Logo Set Two","s":"Apple Castle, Ghost Capsule, Foxmail, Rabbichat, Snake, First Coffee, Astrobaby, Feather Shoes","c":"logos","w":1600,"h":963},
+    {"k":"bee","f":"assets/showreel/bee.jpg","t":"Bee Honey","s":"Script wordmark with mascot","c":"logos","w":1600,"h":1280},
+    {"k":"epic","f":"assets/showreel/epic.jpg","t":"Epic Tech","s":"Neon sign mockup","c":"neon","w":1600,"h":929},
+    {"k":"miami","f":"assets/showreel/miami.jpg","t":"Miami Street Lawyer","s":"Neon sign mockup, South Beach","c":"neon","w":1600,"h":929},
+    {"k":"elepaint","f":"assets/showreel/elepaint.jpg","t":"Elepaint Brand Identity","s":"Logo, social posts, cap, tee, colour palette and type","c":"branding","w":1600,"h":963},
+    {"k":"cards","f":"assets/showreel/cards.jpg","t":"Elepaint Business Cards","s":"Print mockup","c":"branding","w":1600,"h":900},
+    {"k":"landing","f":"assets/showreel/landing.jpg","t":"Landing Page Layouts","s":"Tablet, phone and full-page views","c":"web","w":1600,"h":1463},
+    {"k":"myshop","f":"assets/showreel/myshop.jpg","t":"Myshop Responsive Website","s":"Desktop, tablet and phone layouts","c":"web","w":1280,"h":769},
+    {"k":"webdev","f":"assets/showreel/webdev.jpg","t":"Responsive Website Design","s":"Five page layouts","c":"web","w":1278,"h":740}
+];
+
+const GALLERY_CATS = [
+    {id:'lettering',name:'Lettering & Graffiti',blurb:'Script lettering, bold type treatments and graffiti pieces.'},
+    {id:'madiotech',name:'Madiotech Lettering',blurb:'One wordmark built up in four stages, from flat lettering to the finished piece.'},
+    {id:'logos',name:'Logo Design',blurb:'Mascot, icon and wordmark logos.'},
+    {id:'neon',name:'Neon Signs',blurb:'Logos shown as glowing neon on a dark brick wall.'},
+    {id:'branding',name:'Branding & Mockups',blurb:'Identity systems and print mockups.'},
+    {id:'web',name:'Web & UI Design',blurb:'Responsive website and app interface layouts.'}
+];
+
+const gEsc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const gPad = n => String(n).padStart(2, '0');
+const G_IDX = {};
+GALLERY_DATA.forEach((d, i) => G_IDX[d.k] = i);
+GALLERY_CATS.forEach(c => c.items = GALLERY_DATA.filter(d => d.c === c.id));
+
+function initGallery() {
+    const chipsEl = document.getElementById('galleryChips');
+    const showEl = document.getElementById('galleryShowcase');
+    if (!chipsEl || !showEl) return;
+
+    chipsEl.innerHTML = GALLERY_CATS.map(c =>
+        '<a href="#gallery-' + c.id + '" class="gallery-chip" data-id="' + c.id + '">' + gEsc(c.name) + '</a>'
+    ).join('');
+
+    function cardHTML(d) {
+        return '<button class="gallery-card" type="button" data-i="' + G_IDX[d.k] + '">' +
+            '<span class="im"><img src="' + d.f + '" width="' + d.w + '" height="' + d.h + '" loading="lazy" alt="' + gEsc(d.t + (d.s ? '. ' + d.s : '')) + '"></span>' +
+            '<span class="t">' + gEsc(d.t) + '</span>' +
+            (d.s ? '<span class="s">' + gEsc(d.s) + '</span>' : '') +
+            '</button>';
+    }
+
+    showEl.innerHTML = GALLERY_CATS.map(c => {
+        let body;
+        if (c.id === 'madiotech') {
+            const st = c.items;
+            body = '<div class="gallery-build">' +
+                '<div><div class="gallery-bstage" id="gbStage">' +
+                st.map((d, i) => '<img src="' + d.f + '" alt="' + gEsc(d.t) + '" data-l="' + i + '" loading="lazy">').join('') +
+                '<button class="open" id="gbOpen" type="button">View full size</button></div>' +
+                '<div class="gallery-bcontrol"><label for="gbRange">Drag to build</label>' +
+                '<input type="range" id="gbRange" class="gallery-brange" min="0" max="3" step="0.01" value="0"></div></div>' +
+                '<div class="gallery-steps">' +
+                st.map((d, i) => '<button class="gallery-step" type="button" data-s="' + i + '">' +
+                    '<img src="' + d.f + '" alt="" loading="lazy">' +
+                    '<div><span>' + gEsc(d.s) + '</span><b>' + gEsc(d.t.split(': ')[1]) + '</b></div></button>').join('') +
+                '</div></div>';
+        } else {
+            body = '<div class="gallery-mason' + (c.items.length <= 2 ? ' two' : '') + '">' + c.items.map(cardHTML).join('') + '</div>';
+        }
+        return '<section class="gallery-cat" id="gallery-' + c.id + '">' +
+            '<div class="gallery-cat-head"><div><h3>' + gEsc(c.name) + '</h3><p>' + gEsc(c.blurb) + '</p></div>' +
+            '<span class="n">' + gPad(c.items.length) + ' works</span></div>' + body + '</section>';
+    }).join('');
+
+    // Madiotech Build Slider
+    const brange = document.getElementById('gbRange');
+    const bimgs = [...document.querySelectorAll('#gbStage img')];
+    const steps = [...document.querySelectorAll('.gallery-step')];
+
+    function setBuild(v) {
+        v = Math.max(0, Math.min(3, v));
+        bimgs.forEach((im, i) => { im.style.opacity = i === 0 ? 1 : Math.max(0, Math.min(1, v - (i - 1))); });
+        brange.value = v;
+        brange.style.setProperty('--p', (v / 3 * 100) + '%');
+        const n = Math.round(v);
+        steps.forEach((s, i) => s.classList.toggle('on', i === n));
+    }
+
+    let bTween = 0;
+    function tweenBuild(to, ms) {
+        cancelAnimationFrame(bTween);
+        const from = +brange.value, t0 = performance.now();
+        const f = now => {
+            const p = Math.min(1, (now - t0) / ms);
+            const e = p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+            setBuild(from + (to - from) * e);
+            if (p < 1) bTween = requestAnimationFrame(f);
+        };
+        bTween = requestAnimationFrame(f);
+    }
+
+    if (brange) {
+        brange.addEventListener('input', () => { cancelAnimationFrame(bTween); setBuild(+brange.value); });
+        steps.forEach((s, i) => s.onclick = () => tweenBuild(i, 700));
+        document.getElementById('gbOpen').onclick = () => gLbOpen(G_IDX['mad' + (Math.round(+brange.value) + 1)]);
+        setBuild(0);
+        new IntersectionObserver((en, ob) => {
+            if (en[0].isIntersecting) { ob.disconnect(); if (+brange.value === 0) tweenBuild(3, 4200); }
+        }, { threshold: .5 }).observe(document.getElementById('gbStage'));
+    }
+
+    // Lightbox
+    const gLb = document.getElementById('galleryLb');
+    const gLbImg = document.getElementById('lbImg');
+    let gLbI = 0, gLastFocus = null;
+
+    function gLbShow(i) {
+        gLbI = (i + GALLERY_DATA.length) % GALLERY_DATA.length;
+        const d = GALLERY_DATA[gLbI];
+        gLbImg.src = d.f;
+        gLbImg.alt = d.t;
+        document.getElementById('lbTitle').textContent = d.t;
+        document.getElementById('lbSub').textContent = d.s || '';
+        document.getElementById('lbCount').textContent = gPad(gLbI + 1) + ' / ' + gPad(GALLERY_DATA.length);
+    }
+
+    window.gLbOpen = function(i) {
+        gLastFocus = document.activeElement;
+        gLbShow(i);
+        gLb.hidden = false;
+        document.body.style.overflow = 'hidden';
+        document.getElementById('lbClose').focus();
+    };
+
+    function gLbClose() {
+        gLb.hidden = true;
+        document.body.style.overflow = '';
+        if (gLastFocus && gLastFocus.focus) gLastFocus.focus();
+    }
+
+    document.getElementById('lbClose').onclick = gLbClose;
+    document.getElementById('lbPrev').onclick = () => gLbShow(gLbI - 1);
+    document.getElementById('lbNext').onclick = () => gLbShow(gLbI + 1);
+    gLb.addEventListener('click', e => { if (e.target === gLb || e.target.classList.contains('lb-pane')) gLbClose(); });
+    document.addEventListener('keydown', e => {
+        if (gLb.hidden) return;
+        if (e.key === 'Escape') gLbClose();
+        else if (e.key === 'ArrowLeft') gLbShow(gLbI - 1);
+        else if (e.key === 'ArrowRight') gLbShow(gLbI + 1);
+    });
+
+    showEl.addEventListener('click', e => {
+        const c = e.target.closest('.gallery-card');
+        if (c) window.gLbOpen(+c.dataset.i);
+    });
+
+    // Scroll spy for chips
+    const chipEls = [...document.querySelectorAll('.gallery-chip')];
+    const spy = new IntersectionObserver(en => {
+        en.forEach(x => {
+            if (x.isIntersecting) {
+                const id = x.target.id.replace('gallery-', '');
+                chipEls.forEach(a => a.classList.toggle('on', a.dataset.id === id));
+            }
+        });
+    }, { rootMargin: '-30% 0px -60% 0px' });
+    document.querySelectorAll('.gallery-cat').forEach(s => spy.observe(s));
+}
+
+// Init gallery when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initGallery);
+} else {
+    initGallery();
+}
+
 // ===== Intro Video Play Button =====
 const introVideo = document.getElementById('introVideo');
 const introPlayBtn = document.getElementById('introPlayBtn');
