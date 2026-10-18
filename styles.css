@@ -629,6 +629,116 @@ img {
     }
 }
 
+/* ===== Showreel Banner ===== */
+.showreel-banner-section {
+    padding: 0 0 20px;
+}
+
+.showreel-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 28px 32px;
+    border-radius: 16px;
+    text-decoration: none;
+    color: inherit;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.12) 0%, rgba(124, 58, 237, 0.04) 100%);
+    border: 1px solid rgba(124, 58, 237, 0.2);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    transition: all 0.4s ease;
+    overflow: hidden;
+    position: relative;
+}
+
+.showreel-banner::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(124, 58, 237, 0.18) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.showreel-banner:hover {
+    border-color: rgba(124, 58, 237, 0.5);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(124, 58, 237, 0.2);
+}
+
+.showreel-banner:hover::before { opacity: 1; }
+
+.showreel-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+}
+
+.showreel-banner-icon {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: rgba(124, 58, 237, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    color: var(--accent-light);
+}
+
+.showreel-banner-text h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.showreel-banner-text p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    max-width: 50ch;
+}
+
+.showreel-banner-btn {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 99px;
+    background: var(--accent);
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.showreel-banner:hover .showreel-banner-btn {
+    background: var(--accent-light);
+    box-shadow: 0 4px 20px rgba(124, 58, 237, 0.4);
+}
+
+.showreel-banner-btn i {
+    font-size: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .showreel-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 22px 20px;
+    }
+    .showreel-banner-icon { width: 46px; height: 46px; font-size: 1.1rem; }
+    .showreel-banner-btn { align-self: stretch; justify-content: center; }
+}
+
 /* ===== Design Gallery Section ===== */
 .design-gallery {
     padding: 80px 0;
