@@ -626,6 +626,21 @@ img {
     gap: 14px;
 }
 
+.detail-item-link {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+    padding: 4px 0;
+}
+
+.detail-item-link:hover {
+    transform: translateX(4px);
+}
+
+.detail-item-link:hover .detail-value {
+    color: var(--accent-light);
+}
+
 .detail-item i {
     width: 40px;
     height: 40px;
