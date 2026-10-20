@@ -37,9 +37,11 @@
 ### Design System:
 - **Font:** Inter (body) + Space Grotesk (headings) — Google Fonts
 - **Icons:** Font Awesome 6.5.0 (CDN)
-- **Primary Accent:** #7c3aed (purple)
-- **Style:** Dark modern theme, glassmorphism, gradient accents
-- **Animations:** Custom cursor, particle canvas, typed text, scroll reveal, counter animation
+- **Primary Accent (dark):** #7c3aed (purple)
+- **Primary Accent (light):** #d97706 (amber / yellow) with #f59e0b highlights
+- **Style:** Two themes — dark purple theme + light warm-yellow theme
+- **Theme Toggle:** Sun/moon button in the nav (`#themeToggle`). Theme stored in `localStorage` key `portfolio-theme`; falls back to `prefers-color-scheme`. `data-theme="light|dark"` is set on `<html>` before first paint (inline script in `<head>`).
+- **Animations:** Custom cursor, particle canvas (theme-aware colors), typed text, scroll reveal, counter animation
 - **Layout:** Single page with sections: Hero → About → Skills → Experience → Portfolio → Education → Languages/Hobbies → CV Download → Contact → Footer
 
 ---
@@ -135,6 +137,7 @@
 
 ### DO:
 - ✅ Only include REAL, personal projects (no placeholder/fake projects)
+- ✅ Keep the light/dark theme toggle working (`#themeToggle`, `data-theme` on `<html>`, localStorage key `portfolio-theme`). Light theme = cream + yellow/amber accent; dark theme = purple.
 - ✅ Every change must be committed and pushed to GitHub after completion
 - ✅ Push command: `git add . && git commit -m "message" && git -c http.version=HTTP/1.1 push origin main`
 - ✅ Email links → `mailto:visiospectra786@gmail.com`
