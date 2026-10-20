@@ -26,13 +26,17 @@
 **Platform:** Windows (win32)
 **Working Directory:** D:\OpenCode Projects\My Portfolio\visiotic786.github.io
 
-### Files:
+### Files (kept minimal — 3 code files + 1 component):
 - `index.html` — Main single-page website
-- `styles.css` — All CSS styling
-- `script.js` — All JavaScript (modals, animations, API calls)
+- `styles.css` — All CSS (base, sections, modals, themes, enhancements)
+- `script.js` — All JavaScript (nav, modals, YouTube API, particles, theme toggle, enhancements)
+- `showreel.js` — Standalone `<graphic-showreel>` component (Shadow DOM isolated)
 - `assets/resume.html` — Downloadable HTML resume
 - `assets/resume.pdf` — Downloadable PDF resume
 - `assets/profile.png` — Profile photo
+- `assets/My Designs/` — 38 design images for the Designs section
+
+> NOTE: The old `enhancements.css` and `enhancements.js` were **merged into `styles.css` / `script.js`**. Do not recreate them as separate files.
 
 ### Design System:
 - **Font:** Inter (body) + Space Grotesk (headings) — Google Fonts
