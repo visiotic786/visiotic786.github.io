@@ -205,7 +205,9 @@ const roles = [
     'VFX Artist',
     'Motion Graphics Designer',
     'Brand Designer',
-    'Web Designer'
+    'Web Designer',
+    '3D CGI Artist',
+    'Filmmaker'
 ];
 
 let roleIndex = 0;
