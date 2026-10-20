@@ -1,8 +1,11 @@
+let dialogOpener = null;
+const savedInert = new Map();
+const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 // ===== Custom Cursor =====
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
 
-if (window.innerWidth > 768) {
+if (window.matchMedia('(hover: hover) and (pointer: fine)').matches && !reducedMotion) {
     document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
@@ -83,12 +86,13 @@ class Particle {
 }
 
 // Create particles
-const particleCount = Math.min(80, Math.floor(window.innerWidth / 15));
+const particleCount = reducedMotion ? 0 : Math.min(window.innerWidth < 768 ? 22 : 55, Math.floor(window.innerWidth / 24));
 for (let i = 0; i < particleCount; i++) {
     particles.push(new Particle());
 }
 
 function animateParticles() {
+    if (document.hidden || reducedMotion) return;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     particles.forEach(p => {
@@ -117,6 +121,7 @@ function animateParticles() {
     requestAnimationFrame(animateParticles);
 }
 animateParticles();
+document.addEventListener('visibilitychange', () => { if (!document.hidden && !reducedMotion) animateParticles(); });
 
 // ===== Navigation =====
 const nav = document.getElementById('nav');
@@ -131,18 +136,20 @@ window.addEventListener('scroll', () => {
     }
 });
 
-navToggle.addEventListener('click', () => {
-    navToggle.classList.toggle('active');
-    navLinks.classList.toggle('active');
+function setMenu(open) {
+    navToggle.classList.toggle('active', open);
+    navLinks.classList.toggle('active', open);
+    navToggle.setAttribute('aria-expanded', String(open));
+    navLinks.inert = window.innerWidth <= 768 && !open;
+}
+navToggle.addEventListener('click', () => setMenu(!navLinks.classList.contains('active')));
+document.querySelectorAll('.nav-link').forEach(link => link.addEventListener('click', () => setMenu(false)));
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && navLinks.classList.contains('active')) { setMenu(false); navToggle.focus(); }
 });
-
-// Close mobile menu on link click
-document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-        navToggle.classList.remove('active');
-        navLinks.classList.remove('active');
-    });
-});
+document.addEventListener('click', e => { if (!nav.contains(e.target)) setMenu(false); });
+window.addEventListener('resize', () => setMenu(false));
+setMenu(false);
 
 // ===== Typing Effect =====
 const typedText = document.getElementById('typedText');
@@ -160,6 +167,7 @@ let isDeleting = false;
 let typeSpeed = 100;
 
 function typeEffect() {
+    if (reducedMotion) { typedText.textContent = 'VFX Artist · 3D CGI · Filmmaker'; return; }
     const currentRole = roles[roleIndex];
 
     if (isDeleting) {
@@ -198,7 +206,7 @@ const counterObserver = new IntersectionObserver((entries) => {
         if (entry.isIntersecting) {
             const counter = entry.target;
             const target = parseInt(counter.getAttribute('data-count'));
-            const duration = 2000;
+            const duration = reducedMotion ? 16 : 1500;
             const step = target / (duration / 16);
             let current = 0;
 
@@ -276,7 +284,11 @@ contactForm.addEventListener('submit', async (e) => {
     const btn = contactForm.querySelector('.btn-submit');
     const originalText = btn.innerHTML;
     const formData = new FormData(contactForm);
+    const subject = String(formData.get('subject_display') || '').trim();
+    formData.set('subject', subject ? 'Portfolio Inquiry: ' + subject : 'New Portfolio Inquiry');
     formData.delete('subject_display');
+    const status = document.getElementById('formStatus');
+    status.textContent = 'Sending your message…';
 
     btn.innerHTML = '<span>Sending...</span>';
     btn.disabled = true;
@@ -285,13 +297,16 @@ contactForm.addEventListener('submit', async (e) => {
         const response = await fetch(contactForm.action, {
             method: 'POST',
             body: formData,
-            headers: { 'Accept': 'application/json' }
+            headers: { 'Accept': 'application/json' },
+            signal: AbortSignal.timeout(20000)
         });
 
-        if (response.ok) {
+        const result = await response.json();
+        if (response.ok && result.success) {
             btn.innerHTML = '<span>Message Sent!</span><i class="fas fa-check"></i>';
             btn.style.background = 'linear-gradient(135deg, #22c55e, #16a34a)';
             contactForm.reset();
+            status.textContent = 'Thank you. Your message has been sent.';
 
             setTimeout(() => {
                 btn.innerHTML = originalText;
@@ -302,6 +317,7 @@ contactForm.addEventListener('submit', async (e) => {
             throw new Error('Failed');
         }
     } catch {
+        status.textContent = 'Message could not be sent. Please retry or contact me by email or WhatsApp.';
         btn.innerHTML = '<span>Error — Try Again</span><i class="fas fa-exclamation"></i>';
         btn.style.background = 'linear-gradient(135deg, #ef4444, #dc2626)';
 
@@ -317,13 +333,16 @@ contactForm.addEventListener('submit', async (e) => {
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
+        const id = this.getAttribute('href').slice(1);
+        if (!id) return;
+        const target = document.getElementById(id);
         if (target) {
+            if (id === 'main') target.focus({preventScroll:true});
             const offset = 80;
             const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - offset;
             window.scrollTo({
                 top: targetPosition,
-                behavior: 'smooth'
+                behavior: reducedMotion ? 'auto' : 'smooth'
             });
         }
     });
@@ -357,9 +376,10 @@ const introVideoFrame = document.getElementById('introVideoFrame');
 
 if (introVideo && introPlayBtn) {
     introPlayBtn.addEventListener('click', () => {
-        introVideo.play();
-        introPlayBtn.classList.add('hidden');
-        introVideoFrame.classList.add('video-playing');
+        introVideo.play().catch(() => {
+            introPlayBtn.classList.remove('hidden');
+            introVideoFrame.classList.remove('video-playing');
+        });
     });
 
     introVideo.addEventListener('pause', () => {
@@ -391,12 +411,14 @@ document.querySelectorAll('.video-trigger').forEach(trigger => {
         const videoId = trigger.getAttribute('data-video');
         videoFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
         videoModal.classList.add('active');
+        activateDialog(videoModal);
         document.body.style.overflow = 'hidden';
     });
 });
 
 function closeVideoModal() {
     videoModal.classList.remove('active');
+    deactivateDialog(videoModal);
     videoFrame.src = '';
     document.body.style.overflow = '';
 }
@@ -592,7 +614,7 @@ const projectDetails = {
         videoId: 'heXCfJPTP-k',
         category: 'YouTube Channel',
         title: 'Madiotic — Travel Vlogs & Cinematic Edits',
-        subtitle: '15+ videos edited with Premiere Pro, DaVinci Resolve, After Effects & more',
+        subtitle: 'Travel films edited with Premiere Pro, DaVinci Resolve, After Effects & more',
         channelHeader: true,
         channelBanner: '',
         channelAvatar: 'https://yt3.googleusercontent.com/ytc/AIdro_mSYwn7SoRGrjr2NAUoVu17xOhA4g_9XmU1xywDzG5fbm0=s900-c-k-c0x00ffffff-no-rj',
@@ -727,7 +749,7 @@ const projectDetails = {
                                 <span class="yt-video-views"><i class="fas fa-eye"></i> 181 views</span>
                             </div>
                         </div>
-                        <a href="https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1" target="_blank" class="yt-video-item yt-view-more-card">
+                        <a href="https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="yt-video-item yt-view-more-card">
                             <div class="yt-view-more-icon">
                                 <i class="fab fa-youtube"></i>
                             </div>
@@ -746,7 +768,7 @@ const projectDetails = {
                     <p>Every video on the <strong>Madiotic</strong> channel is created entirely by me — from filming and editing to thumbnails and branding. Here's exactly which software I used and how:</p>
 
                     <h3 style="margin:20px 0 10px; font-size:1rem;"><i class="fas fa-video" style="color:var(--accent-light); margin-right:6px;"></i> Video Editing — Premiere Pro</h3>
-                    <p>All 15+ videos were edited in <strong>Adobe Premiere Pro</strong>. This includes:</p>
+                    <p>These videos were edited in <strong>Adobe Premiere Pro</strong>. This includes:</p>
                     <ul>
                         <li><strong>Timeline editing</strong> — Cutting, trimming, and arranging raw footage into a polished final video</li>
                         <li><strong>Audio mixing</strong> — Balancing background music, voiceover, and natural sounds for a cinematic listening experience</li>
@@ -808,7 +830,7 @@ const projectDetails = {
                 heading: 'Watch on YouTube',
                 content: `
                     <p>Watch all these videos directly on YouTube, subscribe to the channel for new content, and follow Madiotic on social media for behind-the-scenes content.</p>
-                    <a href="https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1" target="_blank" class="btn btn-primary" style="margin-top:8px;">
+                    <a href="https://www.youtube.com/channel/UCmCXdyQ-zh-mJEQcpq3d4Xg?sub_confirmation=1" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="margin-top:8px;">
                         <i class="fab fa-youtube"></i> <span>Subscribe on YouTube</span>
                     </a>
                 `
@@ -820,14 +842,19 @@ const projectDetails = {
 // ===== YouTube API — Live Channel Stats =====
 const YT_API_KEY = 'AIzaSyAQWXYjD40-l-9LqQaYm-6Mde6AhwcMDCw';
 const YT_CHANNEL_ID = 'UCmCXdyQ-zh-mJEQcpq3d4Xg';
+let cachedYtStats = null;
+let cachedYtTime = 0;
 
 async function fetchYtStats() {
+    if (cachedYtStats && Date.now() - cachedYtTime < 300000) return cachedYtStats;
     try {
-        const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YT_CHANNEL_ID}&key=${YT_API_KEY}`);
+        const response = await fetch(`https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${YT_CHANNEL_ID}&key=${YT_API_KEY}`, { signal: AbortSignal.timeout(10000) });
+        if (!response.ok) return null;
         const data = await response.json();
         if (data.items && data.items.length > 0) {
             const stats = data.items[0].statistics;
-            return {
+            cachedYtTime = Date.now();
+            return cachedYtStats = {
                 subscribers: parseInt(stats.subscriberCount),
                 videos: parseInt(stats.videoCount),
                 views: parseInt(stats.viewCount)
@@ -852,12 +879,17 @@ function updateChannelHeader(stats) {
         subsEl.innerHTML = `<i class="fas fa-users"></i> ${formatNumber(stats.subscribers)} Subscribers`;
     }
 
+    const cardStats = document.querySelectorAll('[data-category="youtube"] .portfolio-stat');
+    [formatNumber(stats.videos) + ' Videos', formatNumber(stats.views) + ' Views', formatNumber(stats.subscribers) + ' Subscribers'].forEach((value, i) => {
+        if (cardStats[i]) cardStats[i].lastChild.textContent = ' ' + value;
+    });
+
     // Update project detail stats
     const statNumbers = document.querySelectorAll('.project-detail-stat-number');
     if (statNumbers.length >= 3) {
         statNumbers[0].textContent = formatNumber(stats.videos);
         statNumbers[1].textContent = formatNumber(stats.views);
-        if (statNumbers[2]) statNumbers[2].textContent = '5.0';
+        if (statNumbers[2]) statNumbers[2].textContent = formatNumber(stats.subscribers);
     }
 }
 
@@ -865,6 +897,7 @@ async function openProjectDetail(projectKey) {
     const project = projectDetails[projectKey];
     if (!project) return;
 
+    projectDetailContent.dataset.project = projectKey;
     let headerHTML = '';
     if (project.channelHeader) {
         headerHTML = `
@@ -879,7 +912,7 @@ async function openProjectDetail(projectKey) {
                     <h2 class="yt-channel-name">${project.channelName}</h2>
                     <span class="yt-channel-subs"><i class="fas fa-users"></i> <span id="ytSubsText">${project.channelSubs}</span></span>
                     <p class="yt-channel-desc">${project.channelDesc}</p>
-                    <a href="${project.channelUrl}" target="_blank" class="yt-channel-subscribe">
+                    <a href="${project.channelUrl}" target="_blank" rel="noopener noreferrer" class="yt-channel-subscribe">
                         <i class="fab fa-youtube"></i> Subscribe on YouTube
                     </a>
                 </div>
@@ -917,17 +950,19 @@ async function openProjectDetail(projectKey) {
     // Fetch live YouTube stats for channel projects
     if (project.channelHeader) {
         fetchYtStats().then(stats => {
-            if (stats) updateChannelHeader(stats);
+            if (stats && projectModal.classList.contains('active') && projectDetailContent.dataset.project === projectKey) updateChannelHeader(stats);
         });
     }
 
     projectModalContent.scrollTop = 0;
     projectModal.classList.add('active');
+    activateDialog(projectModal);
     document.body.style.overflow = 'hidden';
 }
 
 function closeProjectModal() {
     projectModal.classList.remove('active');
+    deactivateDialog(projectModal);
     projectDetailContent.innerHTML = '';
     document.body.style.overflow = '';
 }
@@ -982,7 +1017,7 @@ function openYtVideo(videoId, el) {
     const inlineFrame = document.getElementById('ytInlineFrame');
     if (inlineFrame) {
         inlineFrame.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
-        document.getElementById('ytInlinePlayer').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        document.getElementById('ytInlinePlayer').scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'center' });
     } else {
         // Fallback for 3D project — update top video iframe
         const content = document.getElementById('projectDetailContent');
@@ -996,3 +1031,36 @@ function openYtVideo(videoId, el) {
     document.querySelectorAll('.yt-video-item').forEach(item => item.classList.remove('yt-video-active'));
     if (el) el.classList.add('yt-video-active');
 }
+
+// Keyboard support for the project image buttons.
+document.querySelectorAll('.portfolio-image').forEach(image => {
+    image.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); image.click(); }
+    });
+});
+document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+// Dialog focus is contained and restored; the background cannot receive clicks or focus.
+function activateDialog(dialog) {
+    dialogOpener = document.activeElement;
+    dialog.setAttribute('aria-hidden', 'false');
+    Array.from(document.body.children).forEach(el => {
+        if (el !== dialog && el.tagName !== 'SCRIPT') { savedInert.set(el, el.inert); el.inert = true; }
+    });
+    dialog.querySelector('button').focus();
+}
+function deactivateDialog(dialog) {
+    dialog.setAttribute('aria-hidden', 'true');
+    savedInert.forEach((value, el) => el.inert = value);
+    savedInert.clear();
+    if (dialogOpener?.isConnected) dialogOpener.focus();
+}
+document.addEventListener('keydown', e => {
+    if (e.key !== 'Tab') return;
+    const dialog = document.querySelector('.project-modal.active, .video-modal.active');
+    if (!dialog) return;
+    const items = Array.from(dialog.querySelectorAll('a[href], button, input, iframe, [tabindex="0"]')).filter(el => !el.disabled && el.getClientRects().length);
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});

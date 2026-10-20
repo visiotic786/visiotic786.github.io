@@ -68,12 +68,23 @@ function lbShow(i){
   L('#lb-t').textContent=d.t;L('#lb-s').textContent=d.s||'';
   L('#lb-c').textContent=pad(lbI+1)+' / '+pad(DATA.length);
 }
-function lbOpen(i){lastFocus=document.activeElement;lbShow(i);lb.hidden=false;document.body.style.overflow='hidden';L('#lb-x').focus()}
-function lbClose(){lb.hidden=true;document.body.style.overflow='';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+const inertBefore = new Map();
+function lbOpen(i){
+ lastFocus=root.activeElement || document.activeElement;lbShow(i);lb.hidden=false;
+ document.body.style.overflow='hidden';
+ [...document.body.children].forEach(el=>{if(el!==lbRoot.host&&el.tagName!=='SCRIPT'){inertBefore.set(el,el.inert);el.inert=true}});
+ L('#lb-x').focus();
+}
+function lbClose(){lb.hidden=true;document.body.style.overflow='';inertBefore.forEach((v,el)=>el.inert=v);inertBefore.clear();if(lastFocus&&lastFocus.focus)lastFocus.focus()}
 L('#lb-x').onclick=lbClose;L('#lb-p').onclick=()=>lbShow(lbI-1);L('#lb-n').onclick=()=>lbShow(lbI+1);
 lb.addEventListener('click',e=>{if(e.target===lb||e.target.classList.contains('pane'))lbClose()});
 document.addEventListener('keydown',e=>{
   if(lb.hidden)return;
+  if(e.key==='Tab'){
+    const first=L('#lb-x'),last=L('#lb-n');
+    if(e.shiftKey&&lbRoot.activeElement===first){e.preventDefault();last.focus()}
+    else if(!e.shiftKey&&lbRoot.activeElement===last){e.preventDefault();first.focus()}
+  }
   if(e.key==='Escape')lbClose();
   else if(e.key==='ArrowLeft')lbShow(lbI-1);
   else if(e.key==='ArrowRight')lbShow(lbI+1);
