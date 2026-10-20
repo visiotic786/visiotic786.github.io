@@ -1,6 +1,49 @@
 let dialogOpener = null;
 const savedInert = new Map();
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ===== Theme (light / dark) =====
+(function initTheme() {
+    const root = document.documentElement;
+    let stored = null;
+    try { stored = localStorage.getItem('portfolio-theme'); } catch (e) {}
+    if (stored !== 'light' && stored !== 'dark') {
+        stored = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    }
+    root.setAttribute('data-theme', stored);
+})();
+
+function setTheme(theme) {
+    const root = document.documentElement;
+    root.setAttribute('data-theme', theme);
+    try { localStorage.setItem('portfolio-theme', theme); } catch (e) {}
+    const btn = document.getElementById('themeToggle');
+    if (btn) {
+        const light = theme === 'light';
+        btn.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
+        btn.setAttribute('title', light ? 'Switch to dark theme' : 'Switch to light theme');
+    }
+    document.dispatchEvent(new CustomEvent('portfolio:themechange', { detail: { theme: theme } }));
+}
+const themeToggleBtn = document.getElementById('themeToggle');
+if (themeToggleBtn) {
+    themeToggleBtn.addEventListener('click', () => {
+        const next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+        setTheme(next);
+    });
+}
+const PARTICLE_COLORS = {
+    dark: ['124, 58, 237', '99, 102, 241'],
+    light: ['217, 119, 6', '245, 158, 11']
+};
+function currentTheme() {
+    return document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+}
+function particleColor() {
+    const set = PARTICLE_COLORS[currentTheme()];
+    return set[Math.floor(Math.random() * set.length)];
+}
+
 // ===== Custom Cursor =====
 const cursor = document.querySelector('.cursor');
 const cursorFollower = document.querySelector('.cursor-follower');
@@ -56,7 +99,7 @@ class Particle {
         this.speedX = (Math.random() - 0.5) * 0.5;
         this.speedY = (Math.random() - 0.5) * 0.5;
         this.opacity = Math.random() * 0.5 + 0.1;
-        this.color = Math.random() > 0.5 ? '124, 58, 237' : '99, 102, 241';
+        this.color = particleColor();
     }
 
     update() {
@@ -109,7 +152,7 @@ function animateParticles() {
 
             if (dist < 120) {
                 ctx.beginPath();
-                ctx.strokeStyle = `rgba(124, 58, 237, ${0.08 * (1 - dist / 120)})`;
+                ctx.strokeStyle = `rgba(${currentTheme() === 'light' ? '217, 119, 6' : '124, 58, 237'}, ${0.08 * (1 - dist / 120)})`;
                 ctx.lineWidth = 0.5;
                 ctx.moveTo(particles[i].x, particles[i].y);
                 ctx.lineTo(particles[j].x, particles[j].y);
@@ -122,6 +165,10 @@ function animateParticles() {
 }
 animateParticles();
 document.addEventListener('visibilitychange', () => { if (!document.hidden && !reducedMotion) animateParticles(); });
+// Recolor particles when the theme changes.
+document.addEventListener('portfolio:themechange', () => {
+    particles.forEach(p => { p.color = particleColor(); });
+});
 
 // ===== Navigation =====
 const nav = document.getElementById('nav');

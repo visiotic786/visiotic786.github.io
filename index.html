@@ -1,9 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Muhammad Anas — Graphic Designer & VFX Artist</title>
+    <script>
+        /* Apply the saved theme before first paint so there is no flash of the wrong theme. */
+        (function () {
+            try {
+                var saved = localStorage.getItem('portfolio-theme');
+                if (saved !== 'light' && saved !== 'dark') {
+                    saved = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+                }
+                document.documentElement.setAttribute('data-theme', saved);
+            } catch (e) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        })();
+    </script>
     <meta name="description" content="Muhammad Anas — Graphic Designer & VFX Artist based in Muzaffarabad, Azad Kashmir. Specializing in branding, motion graphics, 3D visual effects, and web design. Available for freelance projects worldwide.">
     <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,6 +47,10 @@
                 <li><a href="#cv-download" class="nav-link">CV</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light theme" title="Switch to light theme">
+                <i class="fas fa-sun" data-icon="light" aria-hidden="true"></i>
+                <i class="fas fa-moon" data-icon="dark" aria-hidden="true"></i>
+            </button>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-controls="navLinks" aria-expanded="false">
                 <span></span>
                 <span></span>

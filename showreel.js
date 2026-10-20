@@ -8,6 +8,10 @@ var CSS="\n/* Layout: a projection room. The reel plays in a 16:9 stage at the t
 var HTML="<div class=\"rootbox\"><div class=\"top\"><div class=\"wrap\"><nav class=\"chips\" id=\"chips\" aria-label=\"Showreel categories\"></nav></div></div>\n\n<main class=\"wrap\">\n  <section class=\"hero\" aria-label=\"Showreel\">\n    <div class=\"player\">\n    <div class=\"hero-head\">\n      <h2 class=\"h1\">Graphic Design<br>Showreel</h2>\n      <p id=\"heroMeta\"></p>\n    </div>\n    <div class=\"stage\" id=\"stage\" tabindex=\"0\" role=\"group\" aria-label=\"Showreel player. Press space to play or pause.\">\n      <div id=\"layer\"></div>\n      <div class=\"bigplay\" aria-hidden=\"true\"><span><svg viewBox=\"0 0 24 24\"><path d=\"M6 4l14 8-14 8z\"/></svg></span></div>\n    </div>\n    <div class=\"controls\">\n      <button class=\"ib\" id=\"bPrev\" aria-label=\"Previous scene\"><svg viewBox=\"0 0 24 24\"><path d=\"M6 5h2v14H6zM20 5v14L9 12z\"/></svg></button>\n      <button class=\"ib main\" id=\"bPlay\" aria-label=\"Pause\"><svg id=\"icoPause\" viewBox=\"0 0 24 24\"><path d=\"M6 4h4v16H6zM14 4h4v16h-4z\"/></svg><svg id=\"icoPlay\" viewBox=\"0 0 24 24\" hidden><path d=\"M6 4l14 8-14 8z\"/></svg></button>\n      <button class=\"ib\" id=\"bNext\" aria-label=\"Next scene\"><svg viewBox=\"0 0 24 24\"><path d=\"M16 5h2v14h-2zM4 5l11 7L4 19z\"/></svg></button>\n      <input type=\"range\" id=\"seek\" min=\"0\" max=\"1000\" value=\"0\" aria-label=\"Reel position\">\n      <span class=\"time\" id=\"time\">0:00 / 0:00</span>\n    </div>\n    <div class=\"rail\" id=\"rail\"></div>\n    </div>\n  </section>\n\n  <div id=\"showcase\"></div>\n\n  </main></div>";
 var LBCSS=":host{all:initial;color:var(--text);font:400 16px/1.55 var(--body);\n  --ink:#0e0b17;\n  --panel:#171222;\n  --line:#2b2340;\n  --text:#f3effa;\n  --mute:#a198b5;\n  --accent:#7c3aed;\n  --accent-hi:#a78bfa;\n  --amber:#ffb020;\n  --display:\"Space Grotesk\",\"Segoe UI\",system-ui,sans-serif;\n  --body:\"Inter\",\"Segoe UI\",system-ui,-apple-system,sans-serif;\n  color-scheme:dark;\n}[hidden]{display:none!important}*{box-sizing:border-box}button{font:inherit;color:inherit;cursor:pointer}:focus-visible{outline:2px solid var(--accent-hi);outline-offset:3px}/* lightbox */\n#lb{position:fixed;inset:0;z-index:2147483000;background:rgba(8,6,13,.94);display:grid;grid-template-rows:minmax(0,1fr) auto;padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));gap:12px}\n#lb figure{margin:0;display:contents}\n#lb .pane{min-height:0;display:grid;place-items:center}\n#lb img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;border-radius:8px}\n#lb figcaption{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline;justify-content:center;text-align:center}\n#lb figcaption strong{font:700 18px var(--display)}\n#lb figcaption span{color:var(--mute);font-size:14px}\n#lb .no{font:600 13px var(--display);font-variant-numeric:tabular-nums;color:var(--amber)}\n.lbb{position:absolute;width:44px;height:44px;border-radius:50%;border:1px solid var(--line);background:var(--panel);display:grid;place-items:center;padding:0;z-index:2}\n.lbb:hover{border-color:var(--accent-hi)}\n.lbb svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}\n#lb-x{top:max(16px,env(safe-area-inset-top,0px));right:max(16px,env(safe-area-inset-right,0px))}\n#lb-p{left:max(12px,env(safe-area-inset-left,0px));top:50%;margin-top:-22px}\n#lb-n{right:max(12px,env(safe-area-inset-right,0px));top:50%;margin-top:-22px}\n\n";
 var LBHTML="<div id=\"lb\" role=\"dialog\" aria-modal=\"true\" aria-label=\"Image viewer\" hidden>\n  <button class=\"lbb\" id=\"lb-x\" aria-label=\"Close\"><svg viewBox=\"0 0 24 24\"><path d=\"M6 6l12 12M18 6L6 18\"/></svg></button>\n  <button class=\"lbb\" id=\"lb-p\" aria-label=\"Previous image\"><svg viewBox=\"0 0 24 24\"><path d=\"M15 5l-7 7 7 7\"/></svg></button>\n  <button class=\"lbb\" id=\"lb-n\" aria-label=\"Next image\"><svg viewBox=\"0 0 24 24\"><path d=\"M9 5l7 7-7 7\"/></svg></button>\n  <figure>\n    <div class=\"pane\"><img id=\"lb-img\" alt=\"\"></div>\n    <figcaption><strong id=\"lb-t\"></strong><span id=\"lb-s\"></span><span class=\"no\" id=\"lb-c\"></span></figcaption>\n  </figure>\n</div>\n";
+  var SR_LIGHT=":host([data-sr-light]){--ink:#fdfbf7;--panel:#ffffff;--line:#ece6da;--text:#1c1917;--mute:#8a8177;--accent:#d97706;--accent-hi:#b45309;--amber:#f59e0b;color-scheme:light}\n"
+  +":host([data-sr-light]) .top{background:rgba(253,251,247,.92)}\n"
+  +":host([data-sr-light]) .chips a.on{background:rgba(217,119,6,.14)}\n"
+  +":host([data-sr-light]) .bstage .open{background:var(--panel);color:var(--text)}\n";
 function ensureFonts(){
   if(document.querySelector('link[data-sr-fonts]'))return;
   if(document.fonts&&document.fonts.check&&document.fonts.check('16px "Space Grotesk"')&&document.fonts.check('16px Inter'))return;
@@ -206,13 +210,25 @@ setPlaying(want);
 requestAnimationFrame(now=>{last=now;tick(now)});
 
 }
+function syncShowreelTheme(host){
+  var light=document.documentElement.getAttribute('data-theme')==='light';
+  if(light)host.setAttribute('data-sr-light','');
+  else host.removeAttribute('data-sr-light');
+}
+if(document.documentElement){
+  new MutationObserver(function(){
+    var hosts=document.querySelectorAll('graphic-showreel');
+    for(var i=0;i<hosts.length;i++)syncShowreelTheme(hosts[i]);
+  }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+}
 class GraphicShowreel extends HTMLElement{
   connectedCallback(){
     if(this._sr)return;this._sr=true;
     ensureFonts();
     var st=this.getAttribute('sticky-top');if(st)this.style.setProperty('--sr-top',parseInt(st,10)+'px');
     var root=this.attachShadow({mode:'open'});
-    root.innerHTML='<style>'+CSS+'</style>'+HTML;
+    root.innerHTML='<style>'+CSS+'</style><style>'+SR_LIGHT+'</style>'+HTML;
+    syncShowreelTheme(this);
     var lbHost=document.createElement('div');lbHost.setAttribute('data-sr-lightbox','');
     document.body.appendChild(lbHost);
     var lbRoot=lbHost.attachShadow({mode:'open'});

@@ -2858,3 +2858,119 @@ main { position:relative; }
  #particles,.cursor,.cursor-follower,.typed-cursor { display:none; }
  .reveal,.reveal-left,.reveal-right,.reveal-scale,.hero-description,.hero-cta,.hero-stats { opacity:1; transform:none; }
 }
+
+/* ============================================================
+   THEME TOGGLE BUTTON
+   ============================================================ */
+.theme-toggle {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--border-hover);
+    background: var(--bg-card);
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.theme-toggle:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    transform: translateY(-2px) rotate(15deg);
+    box-shadow: 0 8px 24px var(--accent-glow);
+}
+.theme-toggle i { display: none; line-height: 1; }
+:root[data-theme="dark"] .theme-toggle i[data-icon="light"] { display: block; }
+:root[data-theme="light"] .theme-toggle i[data-icon="dark"] { display: block; }
+
+/* ============================================================
+   LIGHT THEME — warm cream surfaces with a bright yellow / amber accent.
+   Mirrors the purple-based dark theme.
+   ============================================================ */
+:root[data-theme="light"] {
+    --bg-primary: #fdfbf7;
+    --bg-secondary: #f7f3ec;
+    --bg-card: #ffffff;
+    --bg-card-hover: #fdf6e9;
+    --text-primary: #1c1917;
+    --text-secondary: #57534e;
+    --text-muted: #8a8177;
+    --accent: #d97706;
+    --accent-light: #b45309;
+    --accent-glow: rgba(217, 119, 6, 0.28);
+    --gradient-1: linear-gradient(135deg, #b45309 0%, #d97706 50%, #f59e0b 100%);
+    --gradient-2: linear-gradient(135deg, #d97706 0%, #f59e0b 100%);
+    --border: rgba(28, 25, 23, 0.08);
+    --border-hover: rgba(28, 25, 23, 0.16);
+    --shadow: 0 4px 24px rgba(120, 72, 0, 0.08);
+    --shadow-lg: 0 8px 48px rgba(120, 72, 0, 0.12);
+    color-scheme: light;
+}
+:root[data-theme="light"] ::selection { background: #f59e0b; color: #1c1917; }
+:root[data-theme="light"] :focus-visible { outline: 3px solid #f59e0b; outline-offset: 5px; }
+
+/* Navigation */
+:root[data-theme="light"] .nav { background: rgba(253, 251, 247, 0.72); }
+:root[data-theme="light"] .nav.scrolled { background: rgba(253, 251, 247, 0.85); }
+
+/* Hero */
+:root[data-theme="light"] .hero { background: radial-gradient(ellipse at 80% 35%, rgba(245, 158, 11, 0.16), transparent 55%); }
+:root[data-theme="light"] .hero-badge,
+:root[data-theme="light"] .section-tag { background: rgba(245, 158, 11, 0.12); border-color: rgba(217, 119, 6, 0.28); }
+:root[data-theme="light"] .hero-portrait::before { border-color: rgba(217, 119, 6, 0.32); }
+:root[data-theme="light"] .hero-portrait > img {
+    background: linear-gradient(135deg, #fdf3e3, #f7f3ec);
+    box-shadow: 0 35px 90px rgba(120, 72, 0, 0.18);
+}
+:root[data-theme="light"] .portrait-caption {
+    background: rgba(255, 255, 255, 0.94);
+    border-color: rgba(217, 119, 6, 0.4);
+    color: var(--text-primary);
+    box-shadow: 0 12px 35px rgba(120, 72, 0, 0.15);
+}
+:root[data-theme="light"] .portrait-orbit { border-color: rgba(217, 119, 6, 0.14); }
+:root[data-theme="light"] .hero-ring { border-color: rgba(217, 119, 6, 0.2); }
+:root[data-theme="light"] .ring-2 { border-color: rgba(245, 158, 11, 0.2); }
+:root[data-theme="light"] .ring-2::before { background: #f59e0b; box-shadow: 0 0 20px #f59e0b; }
+:root[data-theme="light"] .shape-1 { background: #f59e0b; }
+:root[data-theme="light"] .shape-2 { background: #fbbf24; }
+:root[data-theme="light"] .shape-3 { background: #f97316; }
+
+/* Cards, buttons & small surfaces with hardcoded dark fills */
+:root[data-theme="light"] .skill-card,
+:root[data-theme="light"] .education-card,
+:root[data-theme="light"] .extras-card,
+:root[data-theme="light"] .timeline-content {
+    background: linear-gradient(145deg, rgba(28, 25, 23, 0.02), transparent 60%), var(--bg-card);
+}
+:root[data-theme="light"] .skill-bar { background: rgba(28, 25, 23, 0.08); }
+:root[data-theme="light"] .portfolio-card { box-shadow: 0 12px 45px rgba(120, 72, 0, 0.1); }
+:root[data-theme="light"] .intro-video-frame { box-shadow: 0 20px 60px rgba(120, 72, 0, 0.18), 0 0 0 1px rgba(217, 119, 6, 0.25); }
+:root[data-theme="light"] .intro-video-play-btn { background: rgba(217, 119, 6, 0.92); box-shadow: 0 0 40px rgba(245, 158, 11, 0.45); animation-name: pulsePlayLight; }
+:root[data-theme="light"] .intro-video-play-btn:hover { box-shadow: 0 0 60px rgba(245, 158, 11, 0.6); }
+@keyframes pulsePlayLight {
+    0%, 100% { box-shadow: 0 0 40px rgba(245, 158, 11, 0.45); }
+    50% { box-shadow: 0 0 70px rgba(245, 158, 11, 0.6); }
+}
+:root[data-theme="light"] .detail-item i { background: rgba(245, 158, 11, 0.12); }
+:root[data-theme="light"] .btn-outline:hover { background: rgba(245, 158, 11, 0.1); }
+:root[data-theme="light"] .btn::after { background: rgba(28, 25, 23, 0.08); }
+:root[data-theme="light"] .social-link::before { background: linear-gradient(90deg, transparent, rgba(28, 25, 23, 0.08), transparent); }
+:root[data-theme="light"] .image-glow { opacity: 0.18; }
+:root[data-theme="light"] .portfolio-item:hover { box-shadow: 0 12px 40px rgba(120, 72, 0, 0.15); }
+:root[data-theme="light"] .yt-inline-player { box-shadow: 0 10px 40px rgba(120, 72, 0, 0.15); }
+:root[data-theme="light"] .yt-channel-avatar { box-shadow: 0 4px 20px rgba(120, 72, 0, 0.18); }
+:root[data-theme="light"] .yt-video-item:hover { box-shadow: 0 8px 24px rgba(120, 72, 0, 0.15); }
+:root[data-theme="light"] .yt-video-item.yt-video-active { box-shadow: 0 0 20px rgba(217, 119, 6, 0.3); }
+:root[data-theme="light"] .about-badge { box-shadow: 0 16px 40px rgba(120, 72, 0, 0.18); }
+
+@media (max-width: 768px) {
+    :root[data-theme="light"] .nav-links { box-shadow: -20px 0 80px rgba(120, 72, 0, 0.14); }
+    /* Keep the theme switch grouped with the menu button on the right. */
+    .theme-toggle { margin-left: auto; }
+    .nav-toggle { margin-left: 10px; }
+}
