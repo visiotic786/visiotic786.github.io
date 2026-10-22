@@ -11,6 +11,16 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
         stored = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
     }
     root.setAttribute('data-theme', stored);
+    
+    // Listen for system theme changes if no manual preference
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
+        try {
+            if (!localStorage.getItem('portfolio-theme')) {
+                root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                document.dispatchEvent(new CustomEvent('portfolio:themechange', { detail: { theme: e.matches ? 'light' : 'dark' } }));
+            }
+        } catch (err) {}
+    });
 })();
 
 function setTheme(theme) {
@@ -296,7 +306,7 @@ skillCards.forEach(card => skillObserver.observe(card));
 
 // ===== Scroll Reveal Animation =====
 const revealElements = document.querySelectorAll(
-    '.section-header, .about-image, .about-content, .skill-card, .timeline-item, .portfolio-item, .education-card, .extras-card, .contact-info, .contact-form'
+    '.section-header, .about-image, .about-content, .skill-card, .timeline-item, .portfolio-item, .education-card, .extras-card, .contact-info, .contact-form, .service-card, .testimonial-card'
 );
 
 revealElements.forEach(el => {
@@ -491,6 +501,7 @@ const projectModal = document.getElementById('projectModal');
 const projectModalContent = document.getElementById('projectModalContent');
 const projectDetailContent = document.getElementById('projectDetailContent');
 const projectModalClose = document.getElementById('projectModalClose');
+let lastFocusElement = null;
 
 const projectDetails = {
     '3d-cgi': {
@@ -1088,6 +1099,24 @@ document.querySelectorAll('.portfolio-image').forEach(image => {
     });
 });
 document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+// Scroll to top button
+const scrollToTopBtn = document.getElementById('scrollToTop');
+if (scrollToTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            scrollToTopBtn.classList.add('visible');
+        } else {
+            scrollToTopBtn.classList.remove('visible');
+        }
+    });
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: reducedMotion ? 'auto' : 'smooth'
+        });
+    });
+}
 
 // Dialog focus is contained and restored; the background cannot receive clicks or focus.
 function activateDialog(dialog) {
