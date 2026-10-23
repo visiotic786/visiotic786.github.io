@@ -12,11 +12,24 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
     }
     root.setAttribute('data-theme', stored);
     
+    // Switch profile images based on initial theme
+    const profileImgs = document.querySelectorAll('.hero-portrait img, .profile-img');
+    profileImgs.forEach(img => {
+        if (stored === 'light') {
+            img.src = 'assets/profile-light.png';
+        } else {
+            img.src = 'assets/profile.png';
+        }
+    });
+    
     // Listen for system theme changes if no manual preference
     window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', e => {
         try {
             if (!localStorage.getItem('portfolio-theme')) {
                 root.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                profileImgs.forEach(img => {
+                    img.src = e.matches ? 'assets/profile-light.png' : 'assets/profile.png';
+                });
                 document.dispatchEvent(new CustomEvent('portfolio:themechange', { detail: { theme: e.matches ? 'light' : 'dark' } }));
             }
         } catch (err) {}
@@ -33,6 +46,15 @@ function setTheme(theme) {
         btn.setAttribute('aria-label', light ? 'Switch to dark theme' : 'Switch to light theme');
         btn.setAttribute('title', light ? 'Switch to dark theme' : 'Switch to light theme');
     }
+    // Switch profile images based on theme
+    const profileImgs = document.querySelectorAll('.hero-portrait img, .profile-img');
+    profileImgs.forEach(img => {
+        if (theme === 'light') {
+            img.src = 'assets/profile-light.png';
+        } else {
+            img.src = 'assets/profile.png';
+        }
+    });
     document.dispatchEvent(new CustomEvent('portfolio:themechange', { detail: { theme: theme } }));
 }
 const themeToggleBtn = document.getElementById('themeToggle');
