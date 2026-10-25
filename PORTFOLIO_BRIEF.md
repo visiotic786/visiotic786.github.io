@@ -28,8 +28,8 @@
 
 ### Files (kept minimal — 3 code files + 1 component):
 - `index.html` — Main single-page website
-- `styles.css` — All CSS (base, sections, modals, themes, enhancements)
-- `script.js` — All JavaScript (nav, modals, YouTube API, particles, theme toggle, enhancements)
+- `styles.css` — All CSS (base, sections, modals, themes, enhancements, ambient UI, AI Lab)
+- `script.js` — All JavaScript (nav, modals, YouTube API, particles, theme toggle, enhancements, AI chip interactions)
 - `showreel.js` — Standalone `<graphic-showreel>` component (Shadow DOM isolated)
 - `assets/resume.html` — Downloadable HTML resume
 - `assets/resume.pdf` — Downloadable PDF resume
@@ -46,7 +46,9 @@
 - **Style:** Two themes — dark purple theme + light warm-yellow theme
 - **Theme Toggle:** Sun/moon button in the nav (`#themeToggle`). Theme stored in `localStorage` key `portfolio-theme`; falls back to `prefers-color-scheme`. `data-theme="light|dark"` is set on `<html>` before first paint (inline script in `<head>`).
 - **Animations:** Custom cursor, particle canvas (theme-aware colors), typed text, scroll reveal, counter animation
-- **Layout:** Single page with sections: Hero → About → Skills → Experience → Portfolio → Education → Languages/Hobbies → CV Download → Contact → Footer
+- **Layout:** Single page with sections: Hero → About → Skills → **AI Creative Lab** → Experience → Portfolio → Services → Testimonials → Education → Languages/Hobbies → CV Download → Contact → Footer
+- **Nav:** Floating pill-style header with logo mark, AI Lab nav link (pulsed), "Hire Me" CTA, theme toggle. Theme stored in `localStorage` key `portfolio-theme`.
+- **Hero extras:** Floating skill & AI model chips (interactive hover popovers, click to scroll/flash related skill or open AI model card), ambient background (drifting orbs, grid, noise, mouse spotlight).
 
 ---
 
@@ -191,7 +193,7 @@
 
 ```
 - HTML5 (semantic, single page)
-- CSS3 (custom properties, grid, flexbox, animations, responsive)
+- CSS3 (custom properties, grid, flexbox, animations, responsive, backdrop-filter)
 - Vanilla JavaScript (no frameworks)
 - Google Fonts (Inter + Space Grotesk)
 - Font Awesome 6.5.0
@@ -200,6 +202,11 @@
 - Web3Forms (contact form)
 - GitHub Pages (hosting)
 ```
+
+### AI platforms referenced in the AI Creative Lab (production tools, not hosted on this site)
+- **Higgsfield AI** — higgsfield.ai — Sora 2, Veo 3.1, Kling 4.0, Seedance 2.5, Genjutsu, Nano Banana Pro, 30+ models
+- **Artlist AI** — artlist.io/ai — Veo 3.1, Kling 3.0, Sora 2, Seedance 2.0, Wan 2.7, Hailuo 2.3, GPT Image 2, Nano Banana Pro, Flux.2, Seedream 5.0, ElevenLabs, Lyria 3 Pro, HeyGen, and more
+
 
 ---
 

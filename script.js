@@ -1237,3 +1237,101 @@ document.addEventListener('keydown', e => {
         if (orbit) orbit.style.transform = '';
     });
 })();
+/* ============================================================
+   v3 interactions — ambient spotlight, floating chips, AI lab
+   ============================================================ */
+(function () {
+    'use strict';
+    var spotlight = document.querySelector('.ambient-spotlight');
+    if (spotlight) {
+        document.addEventListener('pointermove', function (e) {
+            spotlight.style.setProperty('--mx', (e.clientX / innerWidth * 100) + '%');
+            spotlight.style.setProperty('--my', (e.clientY / innerHeight * 100) + '%');
+        }, { passive: true });
+    }
+
+    var badgeLabel = document.getElementById('heroChipLabel');
+    var chips = Array.from(document.querySelectorAll('.float-chip'));
+    var skillsSection = document.getElementById('skills');
+    var aiSection = document.getElementById('ai');
+
+    function closeAllChips() {
+        chips.forEach(function (c) { c.classList.remove('is-open'); });
+    }
+
+    chips.forEach(function (chip) {
+        chip.addEventListener('click', function () {
+            closeAllChips();
+            chip.classList.add('is-open');
+
+            var skill = chip.dataset.skill;
+            var model = chip.dataset.model;
+
+            if (skill) {
+                if (badgeLabel) badgeLabel.textContent = 'Now — ' + skill;
+                var card = Array.from(skillsSection.querySelectorAll('.skill-card')).find(function (c) {
+                    var h = c.querySelector('h3');
+                    return h && h.textContent.trim() === skill;
+                });
+                if (card) {
+                    card.classList.add('skill-card--flash');
+                    card.addEventListener('animationend', function () { card.classList.remove('skill-card--flash'); }, { once: true });
+                    setTimeout(function () { card.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 60);
+                } else {
+                    setTimeout(function () { skillsSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+                }
+                return;
+            }
+
+            if (model) {
+                if (badgeLabel) badgeLabel.textContent = 'Exploring — ' + model;
+                var modelCard = document.querySelector('.ai-model-card[data-model="' + model + '"]');
+                document.querySelectorAll('.ai-model-card').forEach(function (c) {
+                    c.classList.remove('is-open', 'is-focus');
+                });
+                if (modelCard) {
+                    modelCard.classList.add('is-open', 'is-focus');
+                    setTimeout(function () { modelCard.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 80);
+                    var btn = modelCard.querySelector('button') || modelCard;
+                    setTimeout(function () { btn.focus({ preventScroll: true }); }, 350);
+                } else {
+                    aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                return;
+            }
+
+            setTimeout(function () { aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 60);
+        });
+    });
+
+    // Model shelf filters
+    var filters = Array.from(document.querySelectorAll('.ai-filter'));
+    var modelCards = Array.from(document.querySelectorAll('.ai-model-card'));
+    filters.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            filters.forEach(function (b) {
+                b.classList.remove('is-active');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            btn.classList.add('is-active');
+            btn.setAttribute('aria-pressed', 'true');
+            var cat = btn.dataset.filter;
+            modelCards.forEach(function (c) {
+                var show = cat === 'all' || c.dataset.cat === cat;
+                c.toggleAttribute('hidden', !show);
+                c.classList.remove('is-open', 'is-focus');
+            });
+        });
+    });
+
+    // Nav AI link
+    var navAi = document.querySelector('.nav-link--ai');
+    if (navAi && badgeLabel && aiSection) {
+        navAi.addEventListener('click', function (e) {
+            e.preventDefault();
+            if (badgeLabel) badgeLabel.textContent = 'AI Creative Lab';
+            closeAllChips();
+            aiSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    }
+})();
