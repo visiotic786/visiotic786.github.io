@@ -3278,13 +3278,22 @@ body {
 .ambient-grid {
     position: absolute;
     inset: 0;
+    opacity: 0.42;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 20%, #000 12%, transparent 78%);
+    mask-image: radial-gradient(ellipse at 50% 20%, #000 12%, transparent 78%);
+    pointer-events: none;
+    /* Dot matrix base + brighter crosshair intersections */
     background-image:
-        linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
-    background-size: 64px 64px;
-    -webkit-mask-image: radial-gradient(ellipse at 50% 18%, #000 8%, transparent 72%);
-    mask-image: radial-gradient(ellipse at 50% 18%, #000 8%, transparent 72%);
-    opacity: 0.55;
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px, 128px 128px, 128px 128px;
+    animation: gridPulse 10s ease-in-out infinite alternate;
+}
+
+@keyframes gridPulse {
+    0% { opacity: 0.34; }
+    100% { opacity: 0.52; }
 }
 
 .ambient-noise {
@@ -4256,9 +4265,12 @@ main { z-index: 1; }
 }
 :root[data-theme="light"] .ambient-grid {
     background-image:
-        linear-gradient(rgba(28, 25, 23, 0.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(28, 25, 23, 0.06) 1px, transparent 1px);
-    opacity: 0.4;
+        radial-gradient(circle at 50% 50%, rgba(28, 25, 23, 0.10) 1px, transparent 1px),
+        linear-gradient(rgba(28, 25, 23, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(28, 25, 23, 0.03) 1px, transparent 1px);
+    background-size: 64px 64px, 128px 128px, 128px 128px;
+    opacity: 0.34;
+    animation: gridPulse 10s ease-in-out infinite alternate;
 }
 :root[data-theme="light"] .ambient-noise { opacity: 0.03; mix-blend-mode: multiply; }
 :root[data-theme="light"] .ambient-spotlight {
