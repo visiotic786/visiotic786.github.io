@@ -3782,11 +3782,11 @@ main { z-index: 1; }
     transform: translateY(0);
 }
 
-.fc-1 { right: 4%; top: 6%; --dur: 7.2s; --delay: -1.4s; rotate: -3deg; }
-.fc-2 { right: 4%; top: 28%; --dur: 8.4s; --delay: -3.1s; rotate: 2deg; }
-.fc-4 { right: 4%; top: 50%; --dur: 7.8s; --delay: -4.2s; rotate: 2.5deg; }
-.fc-6 { right: 4%; bottom: 18%; --dur: 7.4s; --delay: -3.6s; rotate: 2deg; }
-.fc-7 { right: 2%; bottom: 6%; --dur: 8.1s; --delay: -0.9s; rotate: -2.5deg; }
+.fc-1 { left: 58%; top: 8%; --dur: 7.2s; --delay: -1.4s; rotate: -3deg; }
+.fc-2 { right: 4%; top: 8%; --dur: 8.4s; --delay: -3.1s; rotate: 2deg; }
+.fc-4 { left: 58%; bottom: 8%; --dur: 7.8s; --delay: -4.2s; rotate: 2.5deg; }
+.fc-6 { right: 4%; bottom: 8%; --dur: 7.4s; --delay: -3.6s; rotate: 2deg; }
+.fc-7 { left: 70%; top: 2%; --dur: 8.1s; --delay: -0.9s; rotate: -2.5deg; }
 
 @keyframes chipFloat {
     0%, 100% { translate: 0 0; }
