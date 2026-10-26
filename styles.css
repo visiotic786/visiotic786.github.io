@@ -22,6 +22,7 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --font-primary: 'Inter', sans-serif;
     --font-display: 'Space Grotesk', sans-serif;
+    --grid-dots: rgba(255, 255, 255, 0.10);
 }
 
 /* ===== Reset & Base ===== */
@@ -3247,6 +3248,7 @@ main { position:relative; }
     --border-hover: rgba(28, 25, 23, 0.16);
     --shadow: 0 4px 24px rgba(120, 72, 0, 0.08);
     --shadow-lg: 0 8px 48px rgba(120, 72, 0, 0.12);
+    --grid-dots: rgba(28, 25, 23, 0.10);
     color-scheme: light;
 }
 :root[data-theme="light"] ::selection { background: #f59e0b; color: #1c1917; }
@@ -3400,7 +3402,7 @@ body {
     pointer-events: none;
     /* Dot matrix base + brighter crosshair intersections */
     background-image:
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, var(--grid-dots) 1px, transparent 1px),
         linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 64px 64px, 128px 128px, 128px 128px;
@@ -4378,7 +4380,7 @@ main { z-index: 1; }
 }
 :root[data-theme="light"] .ambient-grid {
     background-image:
-        radial-gradient(circle at 50% 50%, rgba(28, 25, 23, 0.10) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, var(--grid-dots) 1px, transparent 1px),
         linear-gradient(rgba(28, 25, 23, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(28, 25, 23, 0.03) 1px, transparent 1px);
     background-size: 64px 64px, 128px 128px, 128px 128px;
@@ -4654,7 +4656,19 @@ main { z-index: 1; }
     transition: var(--transition);
     display: grid;
     place-items: center;
-    font-size: 0.95rem;
+}
+
+.theme-palette .palette-btn-icon {
+    font-size: 1.1rem;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+}
+
+.theme-palette .palette-btn-icon i {
+    color: var(--text-secondary);
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
 }
 
 .theme-palette:hover {
@@ -4663,9 +4677,14 @@ main { z-index: 1; }
     transform: rotate(15deg);
 }
 
+.theme-palette:hover .palette-btn-icon i {
+    color: var(--accent);
+}
+
 :root[data-theme="light"] .theme-palette {
     background: #fff;
     color: var(--text-secondary);
+    border-color: rgba(28, 25, 23, 0.12);
 }
 
 .palette-popup {

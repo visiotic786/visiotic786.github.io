@@ -1304,6 +1304,23 @@ document.addEventListener('keydown', e => {
 
     if (savedBg) applyBgStyle(savedBg);
 
+    // ---- Grid dot color ----
+    var gridColorItems = Array.from(document.querySelectorAll('.palette-item[data-grid-color]'));
+    var savedGridColor = localStorage.getItem('portfolio-grid-color');
+
+    function applyGridColor(color) {
+        if (!color) return;
+        html.style.setProperty('--grid-dots', color);
+        localStorage.setItem('portfolio-grid-color', color);
+        gridColorItems.forEach(function (item) {
+            item.setAttribute('aria-pressed', String(item.getAttribute('data-grid-color') === color));
+        });
+    }
+
+    if (savedGridColor) {
+        applyGridColor(savedGridColor);
+    }
+
     // ---- Ambient effect toggles ----
     var toggles = {
         embers: document.getElementById('toggleEmbers'),
@@ -1340,6 +1357,7 @@ document.addEventListener('keydown', e => {
                 var color = item.getAttribute('data-theme-color');
                 var icon = item.getAttribute('data-logo-icon');
                 var bg = item.getAttribute('data-bg-style');
+                var grid = item.getAttribute('data-grid-color');
 
                 if (color) {
                     applyColorTheme(color);
@@ -1347,6 +1365,8 @@ document.addEventListener('keydown', e => {
                     applyLogoIcon(icon);
                 } else if (bg) {
                     applyBgStyle(bg);
+                } else if (grid) {
+                    applyGridColor(grid);
                 }
 
                 palettePopup.classList.remove('open');
