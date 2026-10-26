@@ -1242,6 +1242,51 @@ document.addEventListener('keydown', e => {
    ============================================================ */
 (function () {
     'use strict';
+
+    // ===== Color Theme Picker =====
+    var paletteBtn = document.getElementById('themePalette');
+    var palettePopup = document.getElementById('palettePopup');
+    var paletteItems = Array.from(document.querySelectorAll('.palette-item'));
+    var savedColor = localStorage.getItem('portfolio-theme-color');
+
+    function applyColorTheme(color) {
+        if (!color) return;
+        document.documentElement.setAttribute('data-theme-color', color);
+        localStorage.setItem('portfolio-theme-color', color);
+        paletteItems.forEach(function (item) {
+            var active = item.dataset.themeColor === color;
+            item.setAttribute('aria-pressed', String(active));
+        });
+    }
+
+    if (savedColor) {
+        applyColorTheme(savedColor);
+    }
+
+    if (paletteBtn && palettePopup) {
+        paletteBtn.addEventListener('click', function (e) {
+            e.stopPropagation();
+            var isOpen = palettePopup.classList.toggle('open');
+            paletteBtn.setAttribute('aria-expanded', String(isOpen));
+        });
+
+        paletteItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                var color = item.getAttribute('data-theme-color');
+                applyColorTheme(color);
+                palettePopup.classList.remove('open');
+                paletteBtn.setAttribute('aria-expanded', 'false');
+            });
+        });
+
+        document.addEventListener('click', function (e) {
+            if (palettePopup.classList.contains('open') && !palettePopup.contains(e.target) && e.target !== paletteBtn) {
+                palettePopup.classList.remove('open');
+                paletteBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
+
     var spotlight = document.querySelector('.ambient-spotlight');
     if (spotlight) {
         document.addEventListener('pointermove', function (e) {
