@@ -3223,6 +3223,7 @@ main { position:relative; }
     box-shadow: 0 8px 24px var(--accent-glow);
 }
 .theme-toggle i { display: none; line-height: 1; }
+.theme-palette i { display: block !important; }
 :root[data-theme="dark"] .theme-toggle i[data-icon="light"] { display: block; }
 :root[data-theme="light"] .theme-toggle i[data-icon="dark"] { display: block; }
 
