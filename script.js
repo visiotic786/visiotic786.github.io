@@ -1264,7 +1264,13 @@ document.addEventListener('keydown', e => {
         });
     }
 
-    if (savedColor) applyColorTheme(savedColor);
+    if (savedColor) {
+        applyColorTheme(savedColor);
+    } else {
+        var currentTheme = html.getAttribute('data-theme') || 'dark';
+        var defaultColor = currentTheme === 'light' ? 'amber' : 'purple';
+        applyColorTheme(defaultColor);
+    }
 
     // ---- Nav logo icon ----
     var iconItems = Array.from(document.querySelectorAll('.palette-item[data-logo-icon]'));

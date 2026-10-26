@@ -4870,7 +4870,7 @@ main { z-index: 1; }
 }
 
 .palette-item[aria-pressed="true"] .palette-swatch i {
-    color: #fff;
+    color: var(--text-primary);
 }
 
 /* Toggle switches */
