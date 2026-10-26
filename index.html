@@ -92,7 +92,7 @@
             <a href="#hero" class="nav-logo" aria-label="Muhammad Anas — back to top">
                 <!-- Logo icon — easily changeable. Swap the <i> class for any Font Awesome icon you want. -->
                 <span class="nav-logo-mark" aria-hidden="true" data-logo-icon="film">
-                    <i class="fas fa-film"></i>
+                    <i class="fas fa-film active-icon"></i>
                 </span>
                 <span class="nav-logo-copy">
                     <strong>Muhammad Anas</strong>
@@ -114,30 +114,93 @@
                     <i class="fas fa-sun" data-icon="light" aria-hidden="true"></i>
                     <i class="fas fa-moon" data-icon="dark" aria-hidden="true"></i>
                 </button>
-                <button class="theme-toggle theme-palette" id="themePalette" type="button" aria-label="Pick accent color" title="Pick accent color">
+                <button class="theme-toggle theme-palette" id="themePalette" type="button" aria-label="Customize appearance" title="Customize colors, background & icons">
                     <i class="fas fa-palette" aria-hidden="true"></i>
                 </button>
-                <div class="palette-popup" id="palettePopup" role="menu" aria-label="Accent color themes">
-                    <button type="button" class="palette-item" role="menuitem" data-theme-color="purple" aria-pressed="false">
-                        <span class="palette-swatch" style="background: linear-gradient(135deg,#7c3aed,#a855f7,#6366f1)"></span>
-                        <span class="palette-name">Purple</span>
-                    </button>
-                    <button type="button" class="palette-item" role="menuitem" data-theme-color="blue" aria-pressed="false">
-                        <span class="palette-swatch" style="background: linear-gradient(135deg,#2563eb,#3b82f6,#0ea5e9)"></span>
-                        <span class="palette-name">Blue</span>
-                    </button>
-                    <button type="button" class="palette-item" role="menuitem" data-theme-color="emerald" aria-pressed="false">
-                        <span class="palette-swatch" style="background: linear-gradient(135deg,#10b981,#34d399,#059669)"></span>
-                        <span class="palette-name">Emerald</span>
-                    </button>
-                    <button type="button" class="palette-item" role="menuitem" data-theme-color="amber" aria-pressed="false">
-                        <span class="palette-swatch" style="background: linear-gradient(135deg,#d97706,#f59e0b,#fbbf24)"></span>
-                        <span class="palette-name">Amber</span>
-                    </button>
-                    <button type="button" class="palette-item" role="menuitem" data-theme-color="rose" aria-pressed="false">
-                        <span class="palette-swatch" style="background: linear-gradient(135deg,#f43f5e,#fb7185,#ec4899)"></span>
-                        <span class="palette-name">Rose</span>
-                    </button>
+                <div class="palette-popup" id="palettePopup" role="menu" aria-label="Appearance customizer">
+                    <div class="palette-section">
+                        <span class="palette-section-title">Accent Color</span>
+                        <button type="button" class="palette-item" role="menuitem" data-theme-color="purple" aria-pressed="false">
+                            <span class="palette-swatch" style="background: linear-gradient(135deg,#7c3aed,#a855f7,#6366f1)"></span>
+                            <span class="palette-name">Purple</span>
+                        </button>
+                        <button type="button" class="palette-item" role="menuitem" data-theme-color="blue" aria-pressed="false">
+                            <span class="palette-swatch" style="background: linear-gradient(135deg,#2563eb,#3b82f6,#0ea5e9)"></span>
+                            <span class="palette-name">Blue</span>
+                        </button>
+                        <button type="button" class="palette-item" role="menuitem" data-theme-color="emerald" aria-pressed="false">
+                            <span class="palette-swatch" style="background: linear-gradient(135deg,#10b981,#34d399,#059669)"></span>
+                            <span class="palette-name">Emerald</span>
+                        </button>
+                        <button type="button" class="palette-item" role="menuitem" data-theme-color="amber" aria-pressed="false">
+                            <span class="palette-swatch" style="background: linear-gradient(135deg,#d97706,#f59e0b,#fbbf24)"></span>
+                            <span class="palette-name">Amber</span>
+                        </button>
+                        <button type="button" class="palette-item" role="menuitem" data-theme-color="rose" aria-pressed="false">
+                            <span class="palette-swatch" style="background: linear-gradient(135deg,#f43f5e,#fb7185,#ec4899)"></span>
+                            <span class="palette-name">Rose</span>
+                        </button>
+                    </div>
+
+                    <div class="palette-section">
+                        <span class="palette-section-title">Nav Logo Icon</span>
+                        <button type="button" class="palette-item palette-icon-item" role="menuitem" data-logo-icon="film" aria-pressed="false">
+                            <span class="palette-swatch" style="background:var(--bg-card); border:1px solid var(--border);"><i class="fas fa-film"></i></span>
+                            <span class="palette-name">Film</span>
+                        </button>
+                        <button type="button" class="palette-item palette-icon-item" role="menuitem" data-logo-icon="cube" aria-pressed="false">
+                            <span class="palette-swatch" style="background:var(--bg-card); border:1px solid var(--border);"><i class="fas fa-cube"></i></span>
+                            <span class="palette-name">Cube</span>
+                        </button>
+                        <button type="button" class="palette-item palette-icon-item" role="menuitem" data-logo-icon="camera" aria-pressed="false">
+                            <span class="palette-swatch" style="background:var(--bg-card); border:1px solid var(--border);"><i class="fas fa-camera"></i></span>
+                            <span class="palette-name">Camera</span>
+                        </button>
+                        <button type="button" class="palette-item palette-icon-item" role="menuitem" data-logo-icon="wand-magic-sparkles" aria-pressed="false">
+                            <span class="palette-swatch" style="background:var(--bg-card); border:1px solid var(--border);"><i class="fas fa-wand-magic-sparkles"></i></span>
+                            <span class="palette-name">Magic</span>
+                        </button>
+                        <button type="button" class="palette-item palette-icon-item" role="menuitem" data-logo-icon="palette" aria-pressed="false">
+                            <span class="palette-swatch" style="background:var(--bg-card); border:1px solid var(--border);"><i class="fas fa-palette"></i></span>
+                            <span class="palette-name">Palette</span>
+                        </button>
+                    </div>
+
+                    <div class="palette-section">
+                        <span class="palette-section-title">Background Style</span>
+                        <button type="button" class="palette-item" role="menuitem" data-bg-style="default" aria-pressed="false">
+                            <span class="palette-swatch" style="background:var(--bg-primary)"></span>
+                            <span class="palette-name">Dark</span>
+                        </button>
+                        <button type="button" class="palette-item" role="menuitem" data-bg-style="gradient" aria-pressed="false">
+                            <span class="palette-swatch" style="background:linear-gradient(135deg,#1a1a2e,#16213e)"></span>
+                            <span class="palette-name">Gradient</span>
+                        </button>
+                        <button type="button" class="palette-item" role="menuitem" data-bg-style="embers" aria-pressed="false">
+                            <span class="palette-swatch" style="background:radial-gradient(circle at 50% 50%,#2d1b69 0%,#0a0a0f 70%)"></span>
+                            <span class="palette-name">Embers</span>
+                        </button>
+                        <button type="button" class="palette-item" role="menuitem" data-bg-style="minimal" aria-pressed="false">
+                            <span class="palette-swatch" style="background:#0a0a0f"></span>
+                            <span class="palette-name">Minimal</span>
+                        </button>
+                    </div>
+
+                    <div class="palette-section">
+                        <span class="palette-section-title">Ambient Effects</span>
+                        <label class="palette-toggle">
+                            <input type="checkbox" id="toggleEmbers" checked> <span>Embers / Orbs</span>
+                        </label>
+                        <label class="palette-toggle">
+                            <input type="checkbox" id="toggleGrid" checked> <span>Grid</span>
+                        </label>
+                        <label class="palette-toggle">
+                            <input type="checkbox" id="toggleNoise" checked> <span>Noise</span>
+                        </label>
+                        <label class="palette-toggle">
+                            <input type="checkbox" id="toggleSpotlight" checked> <span>Spotlight</span>
+                        </label>
+                    </div>
                 </div>
                 <a href="#contact" class="nav-cta">
                     <span>Hire Me</span>

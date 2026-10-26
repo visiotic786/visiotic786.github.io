@@ -1238,31 +1238,90 @@ document.addEventListener('keydown', e => {
     });
 })();
 /* ============================================================
-   v3 interactions — ambient spotlight, floating chips, AI lab
+   v3 interactions — ambient spotlight, appearance customizer,
+   AI lab
    ============================================================ */
 (function () {
     'use strict';
 
-    // ===== Color Theme Picker =====
+    // ===== Appearance Customizer =====
     var paletteBtn = document.getElementById('themePalette');
     var palettePopup = document.getElementById('palettePopup');
-    var paletteItems = Array.from(document.querySelectorAll('.palette-item'));
+    var allPaletteItems = Array.from(document.querySelectorAll('.palette-item'));
+    var body = document.body;
+    var html = document.documentElement;
+
+    // ---- Accent color ----
+    var accentItems = Array.from(document.querySelectorAll('.palette-item[data-theme-color]'));
     var savedColor = localStorage.getItem('portfolio-theme-color');
 
     function applyColorTheme(color) {
         if (!color) return;
-        document.documentElement.setAttribute('data-theme-color', color);
+        html.setAttribute('data-theme-color', color);
         localStorage.setItem('portfolio-theme-color', color);
-        paletteItems.forEach(function (item) {
-            var active = item.dataset.themeColor === color;
-            item.setAttribute('aria-pressed', String(active));
+        accentItems.forEach(function (item) {
+            item.setAttribute('aria-pressed', String(item.dataset.themeColor === color));
         });
     }
 
-    if (savedColor) {
-        applyColorTheme(savedColor);
+    if (savedColor) applyColorTheme(savedColor);
+
+    // ---- Nav logo icon ----
+    var iconItems = Array.from(document.querySelectorAll('.palette-item[data-logo-icon]'));
+    var savedIcon = localStorage.getItem('portfolio-logo-icon');
+    var logoIconEl = document.querySelector('.nav-logo-mark i');
+
+    function applyLogoIcon(iconClass) {
+        if (!iconClass || !logoIconEl) return;
+        logoIconEl.className = 'fas fa-' + iconClass + ' active-icon';
+        html.setAttribute('data-logo-icon', iconClass);
+        localStorage.setItem('portfolio-logo-icon', iconClass);
+        iconItems.forEach(function (item) {
+            item.setAttribute('aria-pressed', String(item.dataset.logoIcon === iconClass));
+        });
     }
 
+    if (savedIcon) applyLogoIcon(savedIcon);
+
+    // ---- Background style ----
+    var bgItems = Array.from(document.querySelectorAll('.palette-item[data-bg-style]'));
+    var savedBg = localStorage.getItem('portfolio-bg-style');
+
+    function applyBgStyle(style) {
+        if (!style) return;
+        body.setAttribute('data-bg-style', style);
+        localStorage.setItem('portfolio-bg-style', style);
+        bgItems.forEach(function (item) {
+            item.setAttribute('aria-pressed', String(item.dataset.bgStyle === style));
+        });
+    }
+
+    if (savedBg) applyBgStyle(savedBg);
+
+    // ---- Ambient effect toggles ----
+    var toggles = {
+        embers: document.getElementById('toggleEmbers'),
+        grid: document.getElementById('toggleGrid'),
+        noise: document.getElementById('toggleNoise'),
+        spotlight: document.getElementById('toggleSpotlight')
+    };
+
+    function applyToggle(key, el) {
+        var on = el.checked;
+        body.setAttribute('data-' + key, String(on));
+        localStorage.setItem('portfolio-' + key, String(on));
+    }
+
+    Object.keys(toggles).forEach(function (key) {
+        var el = toggles[key];
+        if (!el) return;
+        var saved = localStorage.getItem('portfolio-' + key);
+        if (saved !== null) el.checked = saved === 'true';
+        body.setAttribute('data-' + key, String(el.checked));
+        el.addEventListener('change', function () { applyToggle(key, el); });
+    });
+
+    // ---- Open/close + click handlers ----
     if (paletteBtn && palettePopup) {
         paletteBtn.addEventListener('click', function (e) {
             e.stopPropagation();
@@ -1270,10 +1329,20 @@ document.addEventListener('keydown', e => {
             paletteBtn.setAttribute('aria-expanded', String(isOpen));
         });
 
-        paletteItems.forEach(function (item) {
+        allPaletteItems.forEach(function (item) {
             item.addEventListener('click', function () {
                 var color = item.getAttribute('data-theme-color');
-                applyColorTheme(color);
+                var icon = item.getAttribute('data-logo-icon');
+                var bg = item.getAttribute('data-bg-style');
+
+                if (color) {
+                    applyColorTheme(color);
+                } else if (icon) {
+                    applyLogoIcon(icon);
+                } else if (bg) {
+                    applyBgStyle(bg);
+                }
+
                 palettePopup.classList.remove('open');
                 paletteBtn.setAttribute('aria-expanded', 'false');
             });
