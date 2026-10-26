@@ -22,7 +22,6 @@
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --font-primary: 'Inter', sans-serif;
     --font-display: 'Space Grotesk', sans-serif;
-    --grid-dots: rgba(255, 255, 255, 0.10);
 }
 
 /* ===== Reset & Base ===== */
@@ -3248,7 +3247,6 @@ main { position:relative; }
     --border-hover: rgba(28, 25, 23, 0.16);
     --shadow: 0 4px 24px rgba(120, 72, 0, 0.08);
     --shadow-lg: 0 8px 48px rgba(120, 72, 0, 0.12);
-    --grid-dots: rgba(28, 25, 23, 0.10);
     color-scheme: light;
 }
 :root[data-theme="light"] ::selection { background: #f59e0b; color: #1c1917; }
@@ -3402,7 +3400,7 @@ body {
     pointer-events: none;
     /* Dot matrix base + brighter crosshair intersections */
     background-image:
-        radial-gradient(circle at 50% 50%, var(--grid-dots) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.10) 1px, transparent 1px),
         linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 64px 64px, 128px 128px, 128px 128px;
@@ -4380,7 +4378,7 @@ main { z-index: 1; }
 }
 :root[data-theme="light"] .ambient-grid {
     background-image:
-        radial-gradient(circle at 50% 50%, var(--grid-dots) 1px, transparent 1px),
+        radial-gradient(circle at 50% 50%, rgba(28, 25, 23, 0.10) 1px, transparent 1px),
         linear-gradient(rgba(28, 25, 23, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(28, 25, 23, 0.03) 1px, transparent 1px);
     background-size: 64px 64px, 128px 128px, 128px 128px;
@@ -4966,35 +4964,6 @@ main { z-index: 1; }
 
 :root[data-theme="light"] .palette-toggle {
     color: var(--text-secondary);
-}
-
-/* ---------- Background style variations ---------- */
-body[data-bg-style="gradient"] {
-    background-image:
-        linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%) !important;
-    background-attachment: fixed;
-}
-
-body[data-bg-style="embers"] {
-    background-image:
-        radial-gradient(circle at 20% 30%, rgba(124, 58, 237, 0.15), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(236, 72, 153, 0.12), transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03), 70%) !important;
-    background-attachment: fixed;
-}
-
-body[data-bg-style="minimal"] {
-    background-image: none !important;
-    background-color: var(--bg-primary) !important;
-}
-
-:root[data-theme="light"][data-bg-style="gradient"] body {
-    background-image: linear-gradient(135deg, #fdfbf7 0%, #f3e9d7 50%, #e7d5c0 100%) !important;
-}
-:root[data-theme="light"][data-bg-style="embers"] body {
-    background-image:
-        radial-gradient(circle at 20% 30%, rgba(245, 158, 11, 0.12), transparent 40%),
-        radial-gradient(circle at 80% 70%, rgba(217, 119, 6, 0.1), transparent 40%) !important;
 }
 
 /* Ambient effect toggles */
